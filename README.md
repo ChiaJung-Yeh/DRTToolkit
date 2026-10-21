@@ -9,12 +9,7 @@ Use the toolkit to examine how changes in fleet size, passenger demand or operat
 Read the [practitioner guidebook](docs/DRT_Planning_Guidebook.pdf) before preparing a local study. It explains the input data, modelling assumptions, workflow and interpretation of results.
 
 Additional resources are available:
-
-- [Editable Word guidebook](docs/DRT_Planning_Guidebook.docx)
-- [Browser guidebook](docs/GUIDEBOOK.html) and [Markdown guidebook](docs/GUIDEBOOK.md)
 - [Data dictionary](docs/DATA_DICTIONARY.csv)
-- [Validation report](docs/VALIDATION_REPORT.md) and [source audit](docs/SOURCE_AUDIT.md)
-- [Academic overview](docs/DRT_Toolkit_Academic_Introduction.docx) explaining the overall analysis framework
 
 ## Analysis workflow
 
