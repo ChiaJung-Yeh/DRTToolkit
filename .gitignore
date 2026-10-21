@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.pyc
+outputs/
+data/user/
+*.egg-info/
+build/
+dist/
+.Rproj.user
+.Rhistory
+.Rdata
+.httr-oauth
+.DS_Store
+.quarto

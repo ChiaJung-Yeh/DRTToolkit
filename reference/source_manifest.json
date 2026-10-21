@@ -1,0 +1,37 @@
+[
+  {
+    "source": "E:\\On-demand Transport Service\\Analysis\\5_DRTS DEA\\TW\\Taiwan DRT.R",
+    "source_sha256": "3bb8628d43ad9d0ad104afd62d35794113366a5f065e6ec2f7b119f85d818715",
+    "copy": "Taiwan DRT.R",
+    "copy_sha256": "3b84da878aea8f90c613b819fdd4759fcc0b153720d8192d47d0720e91af680f",
+    "changes": "R: credential literals replaced by environment variables; map key removed. Notebook: outputs and execution counts cleared, minimal metadata retained."
+  },
+  {
+    "source": "E:\\On-demand Transport Service\\Analysis\\5_DRTS DEA\\TW\\Taiwan DRT (DDF).ipynb",
+    "source_sha256": "3e2bcba7d179a99016dad453b5371bc73c50cff96e4cc17e93e7200c13f23fd6",
+    "copy": "Taiwan DRT (DDF).ipynb",
+    "copy_sha256": "4d9f4882fa57025aa4d570d3293aaccbddac9071bca792ee3ea0f54bc9efd9f3",
+    "changes": "R: credential literals replaced by environment variables; map key removed. Notebook: outputs and execution counts cleared, minimal metadata retained."
+  },
+  {
+    "source": "E:\\On-demand Transport Service\\Analysis\\5_DRTS DEA\\TW\\Taiwan DRT (new route).ipynb",
+    "source_sha256": "79dd729f0239f55e5fd702164138b4d297126c0c857d279f7eb318194cdb4a2f",
+    "copy": "Taiwan DRT (new route).ipynb",
+    "copy_sha256": "23220db347aa3c7d2a62debf5e0d0eb21b2ee21a2959e3344da34a0f553f0636",
+    "changes": "R: credential literals replaced by environment variables; map key removed. Notebook: outputs and execution counts cleared, minimal metadata retained."
+  },
+  {
+    "source": "E:\\On-demand Transport Service\\Analysis\\6_Agent-based Modelling\\A_OD Analysis (TW Smartcard)\\Yilan City\\OD Analysis (Yilan City).R",
+    "source_sha256": "2903ada00574b6c31e1d3c3bf224b1c8ba658ba620f2a0983422924982d2ee72",
+    "copy": "OD Analysis (Yilan City).R",
+    "copy_sha256": "d6aa56f9767aeda9d71f25891379f2ab53032f7bc54e61f5332032bae7c217bd",
+    "changes": "R: credential literals replaced by environment variables; map key removed. Notebook: outputs and execution counts cleared, minimal metadata retained."
+  },
+  {
+    "source": "E:\\On-demand Transport Service\\Analysis\\6_Agent-based Modelling\\B_ABM (TW)\\ABM (TW).ipynb",
+    "source_sha256": "c33529d4c77dbe7615530af89bf5c338e95dee15192506e6d3cacd767967c5c9",
+    "copy": "ABM (TW).ipynb",
+    "copy_sha256": "93badf2c545d3bd2d7f193aa6e41eb9f84fcd45698fb1607f44bc9dd87d56d5c",
+    "changes": "R: credential literals replaced by environment variables; map key removed. Notebook: outputs and execution counts cleared, minimal metadata retained."
+  }
+]
