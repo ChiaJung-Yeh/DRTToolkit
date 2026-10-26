@@ -34,28 +34,28 @@ def bridge(cfg, daily):
     if not spec.get('comparability_note', '').strip():
         raise ValueError('Document the comparability review in bridge.comparability_note')
     simulated_accounting = spec.get('use_simulated_trip_accounting',False)
-    required = ['RouteID','ServiceType','FleetNum','KMCost']
+    required = ['ServiceID','ServiceType','FleetNum','KMCost']
     if not simulated_accounting:
         required += ['MonthlyTrips','Util_Rate']
     chars = read_csv(cfg['paths']['scenario_characteristics'],required)
-    unique(chars, ['RouteID'])
-    expected = {s['RouteID'] for s in cfg['simulation']['scenarios']}
-    if set(chars.RouteID) != expected:
-        raise ValueError('Scenario characteristics must match all simulation scenario RouteIDs exactly')
+    unique(chars, ['ServiceID'])
+    expected = {s['ServiceID'] for s in cfg['simulation']['scenarios']}
+    if set(chars.ServiceID) != expected:
+        raise ValueError('Scenario characteristics must match all simulation scenario ServiceIDs exactly')
     numeric(chars, ['FleetNum','KMCost'])
     if not simulated_accounting:
         numeric(chars,['MonthlyTrips']);numeric(chars,['Util_Rate'],upper=1)
         if (chars.MonthlyTrips<=0).any():
             raise ValueError('MonthlyTrips must be positive')
     for s in cfg['simulation']['scenarios']:
-        if chars.set_index('RouteID').loc[s['RouteID'], 'FleetNum'] != s['fleet_size']:
+        if chars.set_index('ServiceID').loc[s['ServiceID'], 'FleetNum'] != s['fleet_size']:
             raise ValueError('FleetNum differs between simulation and scenario characteristics')
     days = float(spec['operating_days_per_month'])
     if not 0 < days <= 31:
         raise ValueError('operating_days_per_month must be in (0,31]')
     metrics = ['served','vkt_km']+(['dispatch_tours','trips_with_passengers'] if simulated_accounting else [])
-    means = daily.groupby('RouteID')[metrics].mean()
-    chars = chars.drop(columns=['MonthlyPatronage','MonthlyVKT'], errors='ignore').merge(means, left_on='RouteID', right_index=True)
+    means = daily.groupby('ServiceID')[metrics].mean()
+    chars = chars.drop(columns=['MonthlyPatronage','MonthlyVKT'], errors='ignore').merge(means, left_on='ServiceID', right_index=True)
     chars['MonthlyPatronage'] = chars.served * days
     chars['MonthlyVKT'] = chars.vkt_km * days
     if simulated_accounting:
@@ -79,7 +79,7 @@ def run_stage(cfg, stage, out):
         write_json(out/'validation.json', dict(routes=len(historical), inputs=inputs, outputs=outputs,
                     missing_values=int(historical.isna().sum().sum()), groups=historical.ServiceType.value_counts().to_dict(),
                     counties=historical.COUNTYNAME.value_counts().to_dict() if 'COUNTYNAME' in historical else {},
-                    scenarios=[s['RouteID'] for s in cfg['simulation']['scenarios']]))
+                    scenarios=[s['ServiceID'] for s in cfg['simulation']['scenarios']]))
     elif stage == 'evaluate':
         scores, peers = evaluate(historical, mapping, cfg['evaluation'])
         scores.to_csv(out/'historical_scores.csv', index=False)
@@ -101,21 +101,21 @@ def run_stage(cfg, stage, out):
         od_path = cfg['paths'].get('provided_od')
         run_simulations(cfg, od_path, out)
     elif stage == 'bridge':
-        daily = read_csv(out/'simulation_daily.csv', ['RouteID','served','vkt_km'])
+        daily = read_csv(out/'simulation_daily.csv', ['ServiceID','served','vkt_km'])
         chars = bridge(cfg, daily)
         prepare(chars, mapping, cfg['evaluation'])
-        if set(chars.RouteID) & set(historical.RouteID):
-            raise ValueError('Scenario RouteIDs must differ from historical IDs; use a new version suffix for reconfigurations')
+        if set(chars.ServiceID) & set(historical.ServiceID):
+            raise ValueError('Scenario ServiceIDs must differ from historical IDs; use a new version suffix for reconfigurations')
         chars.to_csv(out/'scenario_model_data.csv', index=False)
     elif stage == 'compare':
         external = cfg['paths'].get('external_scenarios')
         if external:
             if not cfg['bridge']['comparable_trip_definition_confirmed'] or not cfg['bridge'].get('comparability_note','').strip():
                 raise ValueError('External scenarios also require the bridge comparability review and note')
-            scenarios = read_csv(external, ['RouteID','ServiceType'])
+            scenarios = read_csv(external, ['ServiceID','ServiceType'])
         else:
-            scenarios = read_csv(out/'scenario_model_data.csv', ['RouteID','ServiceType'])
-        unique(pd.concat([historical[['RouteID']], scenarios[['RouteID']]]), ['RouteID'])
+            scenarios = read_csv(out/'scenario_model_data.csv', ['ServiceID','ServiceType'])
+        unique(pd.concat([historical[['ServiceID']], scenarios[['ServiceID']]]), ['ServiceID'])
         combined = pd.concat([historical, scenarios], ignore_index=True)
         # Recompute both frontiers on the same indicator universe and pooled set.
         base_spec = cfg.get('comparison_evaluation',cfg['evaluation'])
@@ -124,7 +124,7 @@ def run_stage(cfg, stage, out):
         write_json(out/'comparison_specification.json',comparison_spec)
         before, _ = evaluate(historical, mapping, comparison_spec)
         after, peers = evaluate(combined, mapping, comparison_spec)
-        after['Source'] = np.where(after.DMU.isin(historical.RouteID), 'observed', 'simulated')
+        after['Source'] = np.where(after.DMU.isin(historical.ServiceID), 'observed', 'simulated')
         after = after.merge(before[['DMU','MetaEff','GroupEff']].rename(columns={'MetaEff':'HistoricalOnlyMetaEff','GroupEff':'HistoricalOnlyGroupEff'}), on='DMU', how='left')
         after['MetaEffChange'] = after.MetaEff - after.HistoricalOnlyMetaEff
         after['MetaRank'] = after.MetaEff.rank(method='min', ascending=False)
@@ -141,10 +141,10 @@ def run_stage(cfg, stage, out):
             return
         daily = read_csv(out/'simulation_daily.csv')
         rep_scores = []
-        for s in scenarios.RouteID:
-            for r in daily[daily.RouteID == s].itertuples():
-                candidate = scenarios[scenarios.RouteID == s].copy()
-                candidate['RouteID'] = f'__target_{s}_{r.replication}'
+        for s in scenarios.ServiceID:
+            for r in daily[daily.ServiceID == s].itertuples():
+                candidate = scenarios[scenarios.ServiceID == s].copy()
+                candidate['ServiceID'] = f'__target_{s}_{r.replication}'
                 candidate['MonthlyPatronage'] = r.served * cfg['bridge']['operating_days_per_month']
                 candidate['MonthlyVKT'] = r.vkt_km * cfg['bridge']['operating_days_per_month']
                 if cfg['bridge'].get('use_simulated_trip_accounting'):
@@ -155,11 +155,11 @@ def run_stage(cfg, stage, out):
                 # Some replication targets lie beyond a fixed technology and are infeasible with beta>=0.
                 try:
                     scored, _ = evaluate(pd.concat([combined, candidate], ignore_index=True), mapping,
-                                         comparison_spec, reference_ids=combined.RouteID.tolist(), target_ids=candidate.RouteID.tolist())
+                                         comparison_spec, reference_ids=combined.ServiceID.tolist(), target_ids=candidate.ServiceID.tolist())
                     row = scored.iloc[-1].to_dict()
-                    row.update(RouteID=s, replication=r.replication, status='optimal')
+                    row.update(ServiceID=s, replication=r.replication, status='optimal')
                 except ValueError as exc:
-                    row = dict(RouteID=s, replication=r.replication, status='infeasible_or_failed', reason=str(exc))
+                    row = dict(ServiceID=s, replication=r.replication, status='infeasible_or_failed', reason=str(exc))
                 rep_scores.append(row)
         pd.DataFrame(rep_scores).to_csv(out/'scenario_replication_scores.csv', index=False)
     else:

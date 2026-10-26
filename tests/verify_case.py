@@ -16,10 +16,10 @@ def main():
     actual=pd.read_csv(out/'tobit_model_data.csv')
     assert len(historical)==len(socio)==len(scores)==len(actual)==200
     assert set(historical.COUNTYNAME)==set(cfg['allowed_counties'])
-    assert set(historical.RouteID)==set(socio.RouteID)==set(scores.DMU)==set(actual.RouteID)
-    joined=actual.merge(scores,left_on='RouteID',right_on='DMU',suffixes=('_tobit','_dea'),validate='one_to_one')
+    assert set(historical.ServiceID)==set(socio.ServiceID)==set(scores.DMU)==set(actual.ServiceID)
+    joined=actual.merge(scores,left_on='ServiceID',right_on='DMU',suffixes=('_tobit','_dea'),validate='one_to_one')
     for c in ['MetaEff','GroupEff']:assert np.allclose(joined[c+'_tobit'],joined[c+'_dea'],rtol=0,atol=1e-12)
-    old=socio.merge(actual,on='RouteID',suffixes=('_source','_new'))
+    old=socio.merge(actual,on='ServiceID',suffixes=('_source','_new'))
     changes={c:int((abs(old[c+'_source']-old[c+'_new'])>1e-7).sum()) for c in ['MetaEff','GroupEff']}
     assert changes['MetaEff']>0
     gam=json.loads((out/'demand_diagnostics.json').read_text(encoding='utf-8'))
@@ -29,7 +29,7 @@ def main():
     assert (forecast.reference_max_abs_error<1e-7).all()
     assert set(forecast.rows)=={307530,826540}
     daily=pd.read_csv(out/'simulation_daily.csv')
-    assert len(daily)==160 and daily.RouteID.nunique()==8
+    assert len(daily)==160 and daily.ServiceID.nunique()==8
     assert (daily.requests==daily.served+daily.rejected).all()
     assert (daily.empty_vkt_km<=daily.vkt_km+1e-8).all()
     for case,z in daily.groupby('demand_case'):
@@ -44,7 +44,7 @@ def main():
         d=pd.read_csv(path);assert (d.max_onboard<=4).all()
     pooled=pd.read_csv(out/'pooled_comparison.csv')
     assert len(pooled)==208 and (pooled.Source=='simulated').sum()==8
-    assert set(pooled.DMU)==set(historical.RouteID)|{s['RouteID'] for s in cfg['simulation']['scenarios']}
+    assert set(pooled.DMU)==set(historical.ServiceID)|{s['ServiceID'] for s in cfg['simulation']['scenarios']}
     specification=json.loads((out/'comparison_specification.json').read_text(encoding='utf-8'))
     assert 'MonthlyTrips' not in specification['inputs'] and 'Util_Rate' not in specification['outputs']
     manifest=json.loads((out/'manifest.json').read_text(encoding='utf-8'))

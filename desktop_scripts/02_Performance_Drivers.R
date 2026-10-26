@@ -4,26 +4,26 @@
 toolkit_root <- Sys.getenv('DRT_TOOLKIT_ROOT',unset='E:/On-demand Transport Service/Analysis/7_Toolkit')
 source(file.path(toolkit_root,'desktop_scripts','desktop_common.R'),encoding='UTF-8')
 if (!file.exists(file.path(out,'historical_scores.csv'))) stop('Run 01_Performance_Evaluation.ipynb first with the same run_id')
-# Reusable censored-normal models. Inputs are explicit, joined by RouteID only.
+# Reusable censored-normal models. Inputs are explicit, joined by ServiceID only.
 suppressPackageStartupMessages(library(jsonlite))
 suppressPackageStartupMessages(library(AER))
 if (.Platform$OS.type=='windows') try(Sys.setlocale('LC_CTYPE','English_United States.utf8'),silent=TRUE)
-historical <- read.csv(cfg$paths$historical,check.names=FALSE,colClasses=c(RouteID='character'),fileEncoding='UTF-8-BOM')
-d <- read.csv(cfg$paths$tobit_explanatory,check.names=FALSE,colClasses=c(RouteID='character'),fileEncoding='UTF-8-BOM')
-if (anyDuplicated(d$RouteID)||anyNA(d$RouteID)||!setequal(d$RouteID,historical$RouteID)) stop('Tobit explanatory DMUs must match the filtered historical sample exactly')
-if (!all(d$COUNTYNAME[match(historical$RouteID,d$RouteID)]==historical$COUNTYNAME)) stop('County mismatch between evaluation and explanatory tables')
+historical <- read.csv(cfg$paths$historical,check.names=FALSE,colClasses=c(ServiceID='character'),fileEncoding='UTF-8-BOM')
+d <- read.csv(cfg$paths$tobit_explanatory,check.names=FALSE,colClasses=c(ServiceID='character'),fileEncoding='UTF-8-BOM')
+if (anyDuplicated(d$ServiceID)||anyNA(d$ServiceID)||!setequal(d$ServiceID,historical$ServiceID)) stop('Tobit explanatory DMUs must match the filtered historical sample exactly')
+if (!all(d$COUNTYNAME[match(historical$ServiceID,d$ServiceID)]==historical$COUNTYNAME)) stop('County mismatch between evaluation and explanatory tables')
 # Stored national-frontier outcomes are not valid outcomes for the restricted sample.
 d <- d[,setdiff(names(d),c('GroupEff','MetaEff','ClusterName','TGR'))]
 scores <- read.csv(file.path(out, 'historical_scores.csv'), colClasses=c(DMU='character'),fileEncoding='UTF-8-BOM')
-names(scores)[names(scores)=='DMU'] <- 'RouteID'
-d <- merge(d, scores, by='RouteID', sort=FALSE)
+names(scores)[names(scores)=='DMU'] <- 'ServiceID'
+d <- merge(d, scores, by='ServiceID', sort=FALSE)
 write.csv(d,file.path(out,'tobit_model_data.csv'),row.names=FALSE,fileEncoding='UTF-8')
 if (!is.null(cfg$paths$exogenous) && nzchar(cfg$paths$exogenous)) {
-  exo <- read.csv(cfg$paths$exogenous, check.names=FALSE, colClasses=c(RouteID='character'))
-  if (anyDuplicated(exo$RouteID) || anyNA(exo$RouteID)) stop('Duplicate or missing exogenous RouteID')
-  if (!setequal(exo$RouteID, d$RouteID)) stop('Exogenous RouteIDs must match historical data')
-  if (length(intersect(setdiff(names(exo),'RouteID'), names(d)))) stop('Exogenous columns overlap historical columns')
-  d <- merge(d, exo, by='RouteID', sort=FALSE)
+  exo <- read.csv(cfg$paths$exogenous, check.names=FALSE, colClasses=c(ServiceID='character'))
+  if (anyDuplicated(exo$ServiceID) || anyNA(exo$ServiceID)) stop('Duplicate or missing exogenous ServiceID')
+  if (!setequal(exo$ServiceID, d$ServiceID)) stop('Exogenous ServiceIDs must match historical data')
+  if (length(intersect(setdiff(names(exo),'ServiceID'), names(d)))) stop('Exogenous columns overlap historical columns')
+  d <- merge(d, exo, by='ServiceID', sort=FALSE)
 }
 fits <- list()
 coefs <- list()

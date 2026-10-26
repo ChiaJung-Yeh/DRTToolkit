@@ -20,7 +20,7 @@ class ModelTests(unittest.TestCase):
         self.assertAlmostEqual(solve_ddf(X,Y,np.ones_like(Y),1,np.array([0,1]))[0],0)
 
     def test_group_and_meta(self):
-        d=pd.DataFrame(dict(RouteID=['A','B'],ServiceType=['Fixed-Route','Point-to-Point'],
+        d=pd.DataFrame(dict(ServiceID=['A','B'],ServiceType=['Fixed-Route','Point-to-Point'],
             FleetNum=[2,1],MonthlyTrips=[2,1],MonthlyVKT=[2,1],KMCost=[2,1],
             MonthlyPatronage=[1,2],Util_Rate=[.5,1],SI_Elderly=[1,1],Elderly=[1,2]))
         m=pd.DataFrame(dict(ServiceIntention=['SI_Elderly'],Elderly=[1]))
@@ -92,8 +92,8 @@ class ModelTests(unittest.TestCase):
         allowed={'Tainan City','Kaohsiung City','Yilan County','Hualien County','Taitung County','New Taipei City'}
         self.assertEqual(len(historical),200)
         self.assertEqual(set(historical.COUNTYNAME),allowed)
-        self.assertEqual(set(historical.RouteID),set(socio.RouteID))
-        self.assertFalse(socio.RouteID.duplicated().any())
+        self.assertEqual(set(historical.ServiceID),set(socio.ServiceID))
+        self.assertFalse(socio.ServiceID.duplicated().any())
         self.assertTrue({'PTOverlap_per','DayworkPopDensity','Elderly_per'}<=set(socio))
 
     def test_all_eight_packaged_scenarios(self):
@@ -104,7 +104,7 @@ class ModelTests(unittest.TestCase):
         self.assertEqual(len(catalog),8)
 
     def test_inactive_intention_metric_universe(self):
-        d=pd.DataFrame(dict(RouteID=['A','B'],ServiceType=['Fixed-Route']*2,
+        d=pd.DataFrame(dict(ServiceID=['A','B'],ServiceType=['Fixed-Route']*2,
             FleetNum=[2,1],MonthlyTrips=[2,1],MonthlyVKT=[2,1],KMCost=[2,1],
             MonthlyPatronage=[1,2],Util_Rate=[.5,1],SI_A=[1,1],SI_B=[0,0],MetricA=[1,2],MetricB=[100,0]))
         m=pd.DataFrame(dict(ServiceIntention=['SI_A','SI_B'],MetricA=[1,0],MetricB=[0,1]))
@@ -117,10 +117,10 @@ class ModelTests(unittest.TestCase):
     def test_external_monthly_scenarios(self):
         with tempfile.TemporaryDirectory() as folder:
             out=Path(folder)
-            d=pd.DataFrame(dict(RouteID=['A','B'],ServiceType=['Point-to-Point']*2,
+            d=pd.DataFrame(dict(ServiceID=['A','B'],ServiceType=['Point-to-Point']*2,
                 FleetNum=[2,1],MonthlyTrips=[2,1],MonthlyVKT=[2,1],KMCost=[2,1],
                 MonthlyPatronage=[1,2],Util_Rate=[.5,1],SI_Elderly=[1,1],Elderly=[1,2]))
-            s=d.iloc[:1].copy();s.RouteID='C'
+            s=d.iloc[:1].copy();s.ServiceID='C'
             m=pd.DataFrame(dict(ServiceIntention=['SI_Elderly'],Elderly=[1]))
             for frame,name in [(d,'h.csv'),(s,'s.csv'),(m,'m.csv')]:frame.to_csv(out/name,index=False)
             cfg=dict(paths=dict(historical=str(out/'h.csv'),si_mapping=str(out/'m.csv'),external_scenarios=str(out/'s.csv')),

@@ -168,49 +168,49 @@
     "end_hour_exclusive": 23,
     "scenarios": [
       {
-        "RouteID": "ILA_09_200_2",
+        "ServiceID": "ILA_09_200_2",
         "fleet_size": 2,
         "demand_case": "200",
         "buffer_m": 200
       },
       {
-        "RouteID": "ILA_09_200_3",
+        "ServiceID": "ILA_09_200_3",
         "fleet_size": 3,
         "demand_case": "200",
         "buffer_m": 200
       },
       {
-        "RouteID": "ILA_09_200_4",
+        "ServiceID": "ILA_09_200_4",
         "fleet_size": 4,
         "demand_case": "200",
         "buffer_m": 200
       },
       {
-        "RouteID": "ILA_09_200_5",
+        "ServiceID": "ILA_09_200_5",
         "fleet_size": 5,
         "demand_case": "200",
         "buffer_m": 200
       },
       {
-        "RouteID": "ILA_09_500_2",
+        "ServiceID": "ILA_09_500_2",
         "fleet_size": 2,
         "demand_case": "500",
         "buffer_m": 500
       },
       {
-        "RouteID": "ILA_09_500_3",
+        "ServiceID": "ILA_09_500_3",
         "fleet_size": 3,
         "demand_case": "500",
         "buffer_m": 500
       },
       {
-        "RouteID": "ILA_09_500_4",
+        "ServiceID": "ILA_09_500_4",
         "fleet_size": 4,
         "demand_case": "500",
         "buffer_m": 500
       },
       {
-        "RouteID": "ILA_09_500_5",
+        "ServiceID": "ILA_09_500_5",
         "fleet_size": 5,
         "demand_case": "500",
         "buffer_m": 500

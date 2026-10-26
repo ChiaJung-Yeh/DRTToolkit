@@ -6,7 +6,7 @@ import pandas as pd
 
 
 def read_csv(path, required=()):
-    identifiers = ['RouteID','DMU','GridID','GridID_O','GridID_D','node_id','from_node','to_node','Date','Split']
+    identifiers = ['ServiceID','DMU','GridID','GridID_O','GridID_D','node_id','from_node','to_node','Date','Split']
     df = pd.read_csv(path, encoding='utf-8-sig', dtype={c:str for c in identifiers})
     missing = set(required) - set(df)
     if missing:

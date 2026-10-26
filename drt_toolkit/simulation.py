@@ -248,9 +248,9 @@ def run_simulations(cfg, od_path, out):
         raise ValueError('Grid node IDs must exist in network')
     depots = [str(x) for x in cfg['simulation'].get('depot_nodes',[cfg['simulation'].get('depot_node')])]
     scenarios = cfg['simulation']['scenarios']
-    names = [s['RouteID'] for s in scenarios]
+    names = [s['ServiceID'] for s in scenarios]
     if len(set(names)) != len(names):
-        raise ValueError('Scenario RouteIDs must be unique')
+        raise ValueError('Scenario ServiceIDs must be unique')
     rows = []
     groups = {}
     for n,scenario in enumerate(scenarios):
@@ -277,12 +277,12 @@ def run_simulations(cfg, od_path, out):
                 passengers.to_csv(out/f'passengers_s{n:02d}_rep{rep:03d}.csv',index=False)
                 vehicles.to_csv(out/f'vehicles_s{n:02d}_rep{rep:03d}.csv',index=False)
                 window = (cfg['simulation']['end_hour_exclusive']-cfg['simulation']['start_hour'])*3600
-                rows.append(dict(RouteID=scenario['RouteID'],demand_case=case,replication=rep,seed=seed,
+                rows.append(dict(ServiceID=scenario['ServiceID'],demand_case=case,replication=rep,seed=seed,
                     busy_time_utilization=stats['vehicle_busy_time_s']/(settings['fleet_size']*window),**stats))
     daily = pd.DataFrame(rows)
     daily.to_csv(out/'simulation_daily.csv', index=False)
     columns = ['served','rejected','vkt_km','dispatch_tours','mean_wait_s','p95_wait_s']
-    summary = daily.groupby('RouteID')[columns].agg(['mean','std','min','max'])
+    summary = daily.groupby('ServiceID')[columns].agg(['mean','std','min','max'])
     summary.columns = ['_'.join(c) for c in summary.columns]
     summary.to_csv(out/'simulation_summary.csv')
     return daily

@@ -8,7 +8,7 @@ GROUPS = {'Fixed-Route': 'FR', 'Flexible Fixed-Route': 'FFR', 'Point-to-Point': 
 
 
 def prepare(df, mapping, spec):
-    unique(df, ['RouteID'])
+    unique(df, ['ServiceID'])
     if not df.ServiceType.isin(GROUPS).all():
         raise ValueError(f'ServiceType must be one of {list(GROUPS)}')
     unique(mapping, ['ServiceIntention'])
@@ -25,7 +25,7 @@ def prepare(df, mapping, spec):
     outputs = sorted(set(spec.get('output_universe', spec['outputs'])) |
                      set(spec['outputs']) | {c for c in metric_cols if active_mapping[c].any()})
     inputs = spec['inputs']
-    missing = set(inputs + outputs + flags + ['RouteID', 'ServiceType']) - set(df)
+    missing = set(inputs + outputs + flags + ['ServiceID', 'ServiceType']) - set(df)
     if missing:
         raise ValueError(f'Missing evaluation columns {sorted(missing)}')
     numeric(df, inputs + outputs)
@@ -77,7 +77,7 @@ def evaluate(df, mapping, spec, reference_ids=None, target_ids=None):
     inputs, outputs, direction = prepare(df, mapping, spec)
     X, Y = df[inputs].to_numpy(float), df[outputs].to_numpy(float)
     groups = df.ServiceType.map(GROUPS).to_numpy()
-    ids = df.RouteID.astype(str).to_numpy()
+    ids = df.ServiceID.astype(str).to_numpy()
     refs = np.arange(len(df)) if reference_ids is None else np.flatnonzero(np.isin(ids, reference_ids))
     rows, peers = [], []
     for i, route in enumerate(ids):
@@ -101,7 +101,7 @@ def evaluate(df, mapping, spec, reference_ids=None, target_ids=None):
 
 
 def read_evaluation(cfg):
-    data = read_csv(cfg['paths']['historical'], ['RouteID','ServiceType'])
+    data = read_csv(cfg['paths']['historical'], ['ServiceID','ServiceType'])
     allowed = cfg.get('allowed_counties')
     if allowed and ('COUNTYNAME' not in data or not set(data.COUNTYNAME)<=set(allowed)):
         raise ValueError('Evaluation data include services outside the configured six-jurisdiction scope')
