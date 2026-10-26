@@ -1,19 +1,38 @@
 {
   "project_root": "..",
-  "seed": 20261022,
+  "seed": 20261025,
   "rscript": "Rscript",
+  "allowed_counties": [
+    "Tainan City",
+    "Kaohsiung City",
+    "Yilan County",
+    "Hualien County",
+    "Taitung County",
+    "New Taipei City"
+  ],
   "paths": {
-    "historical": "data/user/historical.csv",
-    "si_mapping": "data/user/si_mapping.csv",
-    "exogenous": "data/user/exogenous.csv",
-    "demand_training": "data/user/demand_training.csv",
-    "demand_prediction_features": "data/user/demand_features.csv",
-    "provided_od": "data/user/provided_od.csv",
-    "grid_nodes": "data/user/grid_nodes.csv",
-    "network": "data/user/network.csv",
-    "scenario_characteristics": "data/user/scenario_characteristics.csv",
+    "historical": "data/evaluation/Model Data.csv",
+    "si_mapping": "data/evaluation/si_mapping.csv",
+    "exogenous": null,
+    "demand_training": "data/demand/dt_model.csv",
+    "ml_model": "data/ml/models/deployment_model.joblib",
+    "ml_features_200": "data/ml/dt_predict_200.csv.gz",
+    "ml_features_500": "data/ml/dt_predict_500.csv.gz",
+    "reference_demand_200": "data/scenarios/reference_demand_200.csv.gz",
+    "reference_demand_500": "data/scenarios/reference_demand_500.csv.gz",
+    "provided_od": null,
+    "grid_nodes": "data/simulation/grid_nodes.csv",
+    "network": "data/simulation/network.csv.gz",
+    "network_nodes": "data/simulation/network_nodes.csv",
+    "depots": "data/simulation/depot_nodes.csv",
+    "spatial_grids": "data/spatial/service_grids.gpkg",
+    "spatial_grids_200": "data/spatial/scenario_grids_200.gpkg",
+    "spatial_grids_500": "data/spatial/scenario_grids_500.gpkg",
+    "scenario_characteristics": "data/scenarios/scenario_characteristics.csv",
+    "cost_parameters": "data/scenarios/cost_parameters.json",
     "outputs": "outputs",
-    "external_scenarios": null
+    "external_scenarios": null,
+    "tobit_explanatory": "data/tobit/tobit_socio.csv"
   },
   "evaluation": {
     "inputs": [
@@ -25,6 +44,16 @@
     "outputs": [
       "MonthlyPatronage",
       "Util_Rate"
+    ]
+  },
+  "comparison_evaluation": {
+    "inputs": [
+      "FleetNum",
+      "MonthlyVKT",
+      "KMCost"
+    ],
+    "outputs": [
+      "MonthlyPatronage"
     ]
   },
   "tobit": {
@@ -47,12 +76,50 @@
     ]
   },
   "demand": {
-    "source": "trained",
-    "positive_formula": "Trips ~ School_O+School_D+Shop_O+Shop_D+Hospital_O+Hospital_D+TransportHub_O:Elderly000_D+TransportHub_D:Elderly000_O+Hospital_O:Elderly000_D+Hospital_D:Elderly000_O+School_O:HighSchoolStudent000_D+School_D:HighSchoolStudent000_O+Income_med_10k_O+TotalPop000_O+TotalPop000_D+s(euclidist)+s(Hour)+s(Hour,by=TransportHub_O)+s(Hour,by=TransportHub_D)+ti(Hour,Shop_O)+ti(Hour,Shop_D)",
-    "zero_formula": "zero_trip ~ Elderly000_O+Elderly000_D+TotalPop000_O+TotalPop000_D+Shop_O+Shop_D+TransportHub_O+TransportHub_D+euclidist+s(Hour)",
-    "zero_method": "threshold",
-    "zero_threshold": null,
+    "source": "ml",
+    "positive_formula": "Trips ~ School_O+School_D+Shop_O+Shop_D+Hospital_O+Hospital_D+ TransportHub_O:Elderly000_D+ TransportHub_D:Elderly000_O+ Hospital_O:Elderly000_D+ Hospital_D:Elderly000_O+ School_O:HighSchoolStudent000_D+ School_D:HighSchoolStudent000_O+ Income_med_10k_O+TotalPop000_O+TotalPop000_D+ DRTRoute:euclidist+ DRTRoute:FR_share+ s(euclidist)+ s(Hour)+ s(Hour, by=FromCBD)+ s(Hour, by=ToCBD)+ s(Hour, by=TransportHub_O)+ s(Hour, by=TransportHub_D)+ ti(Hour, Shop_O)+ ti(Hour, Shop_D)",
+    "zero_formula": "zero_trip ~ FixedRoute+Elderly000_O+Elderly000_D+TotalPop000_O+TotalPop000_D+Shop_O+Shop_D+TransportHub_O+TransportHub_D+euclidist+ s(Hour)",
     "threshold_candidates": [
+      0.8,
+      0.801,
+      0.802,
+      0.803,
+      0.804,
+      0.805,
+      0.806,
+      0.807,
+      0.808,
+      0.809,
+      0.81,
+      0.811,
+      0.812,
+      0.813,
+      0.814,
+      0.815,
+      0.816,
+      0.817,
+      0.818,
+      0.819,
+      0.82,
+      0.821,
+      0.822,
+      0.823,
+      0.824,
+      0.825,
+      0.826,
+      0.827,
+      0.828,
+      0.829,
+      0.83,
+      0.831,
+      0.832,
+      0.833,
+      0.834,
+      0.835,
+      0.836,
+      0.837,
+      0.838,
+      0.839,
       0.84,
       0.841,
       0.842,
@@ -73,14 +140,23 @@
       0.857,
       0.858,
       0.859,
-      0.86,
-      0.861
-    ]
+      0.86
+    ],
+    "prediction_cases": [
+      200,
+      500
+    ],
+    "deployment_model_sha256": "5ac143d38137221f05f6fbb49a1f900a170c8a4dc88e827676924c06882af237"
   },
   "simulation": {
     "replications": 20,
     "demand_scale": 1.0,
-    "depot_node": "N0",
+    "depot_nodes": [
+      "1947",
+      "431",
+      "22285",
+      "40942"
+    ],
     "capacity": 4,
     "dwell_s": 20.0,
     "max_wait_s": 900.0,
@@ -88,16 +164,63 @@
     "max_ride_extra_s": 300.0,
     "alpha": 1.5,
     "beta": 3.0,
+    "start_hour": 6,
+    "end_hour_exclusive": 23,
     "scenarios": [
       {
-        "RouteID": "PROPOSED_V1",
-        "fleet_size": 2
+        "RouteID": "ILA_09_200_2",
+        "fleet_size": 2,
+        "demand_case": "200",
+        "buffer_m": 200
+      },
+      {
+        "RouteID": "ILA_09_200_3",
+        "fleet_size": 3,
+        "demand_case": "200",
+        "buffer_m": 200
+      },
+      {
+        "RouteID": "ILA_09_200_4",
+        "fleet_size": 4,
+        "demand_case": "200",
+        "buffer_m": 200
+      },
+      {
+        "RouteID": "ILA_09_200_5",
+        "fleet_size": 5,
+        "demand_case": "200",
+        "buffer_m": 200
+      },
+      {
+        "RouteID": "ILA_09_500_2",
+        "fleet_size": 2,
+        "demand_case": "500",
+        "buffer_m": 500
+      },
+      {
+        "RouteID": "ILA_09_500_3",
+        "fleet_size": 3,
+        "demand_case": "500",
+        "buffer_m": 500
+      },
+      {
+        "RouteID": "ILA_09_500_4",
+        "fleet_size": 4,
+        "demand_case": "500",
+        "buffer_m": 500
+      },
+      {
+        "RouteID": "ILA_09_500_5",
+        "fleet_size": 5,
+        "demand_case": "500",
+        "buffer_m": 500
       }
     ]
   },
   "bridge": {
-    "operating_days_per_month": 22,
-    "comparable_trip_definition_confirmed": false,
-    "comparability_note": ""
+    "operating_days_per_month": 30,
+    "use_simulated_trip_accounting": true,
+    "comparable_trip_definition_confirmed": true,
+    "comparability_note": "MonthlyPatronage and VKT use a 30-day representative month. Vehicle trips are explicitly defined as dispatch tours, with trip utilization equal to tours carrying passengers / tours; source busy-time utilization is retained separately. The default pooled specification excludes MonthlyTrips and Util_Rate because the original observed/simulated exports used different definitions. The full-indicator pooled result is a sensitivity analysis, not the primary comparison. Depot return and driver shifts are not modelled. Cost assumptions are taken from Economic Output.xlsx."
   }
 }

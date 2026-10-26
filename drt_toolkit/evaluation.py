@@ -1,4 +1,4 @@
-"""VRS meta/group DDF, algebraically matching the supplied Gurobi model."""
+"""Evaluate group and meta-frontier performance with a variable-returns-to-scale DDF."""
 import numpy as np
 import pandas as pd
 from scipy.optimize import linprog
@@ -66,6 +66,10 @@ def solve_ddf(X, Y, directions, target, refs):
         raise ValueError(f'DDF beta outside its input-implied range: {beta}')
     # Snap only solver tolerance at exact bounds; retain interior estimates.
     beta = min(1., max(0., beta))
+    if beta<1e-9:
+        beta=0.
+    elif 1-beta<1e-9:
+        beta=1.
     return beta, res.x[:-1], violation
 
 
@@ -97,5 +101,8 @@ def evaluate(df, mapping, spec, reference_ids=None, target_ids=None):
 
 
 def read_evaluation(cfg):
-    return (read_csv(cfg['paths']['historical'], ['RouteID', 'ServiceType']),
-            read_csv(cfg['paths']['si_mapping'], ['ServiceIntention']))
+    data = read_csv(cfg['paths']['historical'], ['RouteID','ServiceType'])
+    allowed = cfg.get('allowed_counties')
+    if allowed and ('COUNTYNAME' not in data or not set(data.COUNTYNAME)<=set(allowed)):
+        raise ValueError('Evaluation data include services outside the configured six-jurisdiction scope')
+    return data,read_csv(cfg['paths']['si_mapping'],['ServiceIntention'])

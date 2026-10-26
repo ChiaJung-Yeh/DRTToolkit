@@ -1,0 +1,226 @@
+[
+  {
+    "source": "E:\\On-demand Transport Service\\Analysis\\5_DRTS DEA\\TW\\Data\\Model Data.csv",
+    "source_sha256": "2145a5245e22ee0b7e544239681d49b734643554e412567c509e8fda7f3ac708",
+    "file": "data/evaluation/Model Data.csv",
+    "sha256": "6705c3ff24ec41889bdb853596664d4a42bfd1718a9c327a8e4f19718af13eb9",
+    "transformation": "Filter COUNTYNAME to six requested jurisdictions; preserve all original field strings; 26 October 2026: translate COUNTYNAME to English; all other field strings and row ordering unchanged"
+  },
+  {
+    "source": "E:\\On-demand Transport Service\\Analysis\\5_DRTS DEA\\TW\\SI_Metric.csv",
+    "source_sha256": "80e4be213dc38f09f55214cc8e0fc1caa772ae6e26a8cdf17d1e4f00e2869c86",
+    "file": "data/evaluation/si_mapping.csv",
+    "sha256": "80e4be213dc38f09f55214cc8e0fc1caa772ae6e26a8cdf17d1e4f00e2869c86",
+    "transformation": "Byte-identical copy"
+  },
+  {
+    "source": "E:\\On-demand Transport Service\\Analysis\\6_Agent-based Modelling\\A_OD Analysis (TW Smartcard)\\Yilan City\\ML model\\dt_model.csv",
+    "source_sha256": "d8002db19eade18b70a771335bde212d0e6ce72386abacd3ff93ff65a3f45c93",
+    "file": "data/demand/dt_model.csv",
+    "sha256": "d8002db19eade18b70a771335bde212d0e6ce72386abacd3ff93ff65a3f45c93",
+    "transformation": "Byte-identical copy"
+  },
+  {
+    "source": "E:\\On-demand Transport Service\\Analysis\\6_Agent-based Modelling\\A_OD Analysis (TW Smartcard)\\Yilan City\\ML model\\SA Grid.csv",
+    "source_sha256": "6aca42629b585d4092733b5de2f222eda78c3691d03aa9553be2103138c3b38a",
+    "file": "data/spatial/SA Grid.csv",
+    "sha256": "6aca42629b585d4092733b5de2f222eda78c3691d03aa9553be2103138c3b38a",
+    "transformation": "Byte-identical copy"
+  },
+  {
+    "source": "E:\\On-demand Transport Service\\Analysis\\6_Agent-based Modelling\\A_OD Analysis (TW Smartcard)\\Yilan City\\ML model\\dt_predict_200.csv",
+    "source_sha256": "0fe8adf9393eb8a1b3741848ea11669ba5bff6315983d2f5a8242340849a09ab",
+    "file": "data/ml/dt_predict_200.csv.gz",
+    "sha256": "edc780450612afa2ce2cb269576db0d91199330ecedbe268aee42b93dc107c03",
+    "transformation": "Lossless gzip of prepared prediction features; decompressed bytes match source"
+  },
+  {
+    "source": "E:\\On-demand Transport Service\\Analysis\\6_Agent-based Modelling\\A_OD Analysis (TW Smartcard)\\Yilan City\\ML model\\optimized_results\\demand_calibration_200.json",
+    "source_sha256": "3b8ed6940a3aff808f9647f053618e5b0db4e3b90afd6fbd94219b85c0c59456",
+    "file": "data/reference/demand_calibration_200.json",
+    "sha256": "3b8ed6940a3aff808f9647f053618e5b0db4e3b90afd6fbd94219b85c0c59456",
+    "transformation": "Byte-identical copy"
+  },
+  {
+    "source": "E:\\On-demand Transport Service\\Analysis\\6_Agent-based Modelling\\A_OD Analysis (TW Smartcard)\\Yilan City\\ML model\\optimized_results\\prediction_manifest_200.json",
+    "source_sha256": "9b635134d7cba57b5fbea7b6e793d9a6de2d5bf5be56d784b4a01f87330778f0",
+    "file": "data/reference/prediction_manifest_200.json",
+    "sha256": "9b635134d7cba57b5fbea7b6e793d9a6de2d5bf5be56d784b4a01f87330778f0",
+    "transformation": "Byte-identical copy"
+  },
+  {
+    "source": "E:\\On-demand Transport Service\\Analysis\\6_Agent-based Modelling\\A_OD Analysis (TW Smartcard)\\Yilan City\\ML model\\optimized_results\\new_predictions_200.csv",
+    "source_sha256": "b52be574c579a6c856de05df0f7f24ea1585af88c77f6dbc406ab34636ad4310",
+    "file": "data/scenarios/reference_demand_200.csv.gz",
+    "sha256": "c128b1ba428298b82d5a586da29602d6e6877163a5c96cc9e9552a2a547b4665",
+    "transformation": "Extract final calibrated predicted_trips only; rename PredTrips; keep numeric grid IDs"
+  },
+  {
+    "source": "E:\\On-demand Transport Service\\Analysis\\6_Agent-based Modelling\\A_OD Analysis (TW Smartcard)\\Yilan City\\ML model\\dt_predict_500.csv",
+    "source_sha256": "d2aa54e48aa79e61db0688ff737b8d016b29227c02b7012ced32ff4d9baf11b4",
+    "file": "data/ml/dt_predict_500.csv.gz",
+    "sha256": "6a29c1724edee64fe8b78d6984c5e69aa7c107145244ce5e6332fc64651cfcee",
+    "transformation": "Lossless gzip of prepared prediction features; decompressed bytes match source"
+  },
+  {
+    "source": "E:\\On-demand Transport Service\\Analysis\\6_Agent-based Modelling\\A_OD Analysis (TW Smartcard)\\Yilan City\\ML model\\optimized_results\\demand_calibration_500.json",
+    "source_sha256": "b7ce69462a8453d9186c0665ffa52b42c73e556dd308306595b7b189c6e276a8",
+    "file": "data/reference/demand_calibration_500.json",
+    "sha256": "b7ce69462a8453d9186c0665ffa52b42c73e556dd308306595b7b189c6e276a8",
+    "transformation": "Byte-identical copy"
+  },
+  {
+    "source": "E:\\On-demand Transport Service\\Analysis\\6_Agent-based Modelling\\A_OD Analysis (TW Smartcard)\\Yilan City\\ML model\\optimized_results\\prediction_manifest_500.json",
+    "source_sha256": "4d31fe17c5ed61b96bd1a670d5ecf54b4a423228632be88d95f3ca0dc7618ed4",
+    "file": "data/reference/prediction_manifest_500.json",
+    "sha256": "4d31fe17c5ed61b96bd1a670d5ecf54b4a423228632be88d95f3ca0dc7618ed4",
+    "transformation": "Byte-identical copy"
+  },
+  {
+    "source": "E:\\On-demand Transport Service\\Analysis\\6_Agent-based Modelling\\A_OD Analysis (TW Smartcard)\\Yilan City\\ML model\\optimized_results\\new_predictions_500.csv",
+    "source_sha256": "cdd875e6a3bc2b108774269fbd39792fc655ce5294b1831a32923b27663661cf",
+    "file": "data/scenarios/reference_demand_500.csv.gz",
+    "sha256": "91e020c59d03c7e62b5738aa2ccf94b32560de07a2eb2a26b3d82798ed174d5f",
+    "transformation": "Extract final calibrated predicted_trips only; rename PredTrips; keep numeric grid IDs"
+  },
+  {
+    "source": "E:\\On-demand Transport Service\\Analysis\\6_Agent-based Modelling\\A_OD Analysis (TW Smartcard)\\Yilan City\\ML model\\optimized_results\\deployment_model.joblib",
+    "source_sha256": "5ac143d38137221f05f6fbb49a1f900a170c8a4dc88e827676924c06882af237",
+    "file": "data/ml/models/deployment_model.joblib",
+    "sha256": "5ac143d38137221f05f6fbb49a1f900a170c8a4dc88e827676924c06882af237",
+    "transformation": "Byte-identical copy"
+  },
+  {
+    "source": "E:\\On-demand Transport Service\\Analysis\\6_Agent-based Modelling\\A_OD Analysis (TW Smartcard)\\Yilan City\\ML model\\optimized_results\\metadata.json",
+    "source_sha256": "bb02f71bacb27eb11fc49696370d18c3b07ecef0f5804f80966bd4efb6064d3f",
+    "file": "data/ml/models/metadata.json",
+    "sha256": "bb02f71bacb27eb11fc49696370d18c3b07ecef0f5804f80966bd4efb6064d3f",
+    "transformation": "Byte-identical copy"
+  },
+  {
+    "source": "E:\\On-demand Transport Service\\Analysis\\6_Agent-based Modelling\\A_OD Analysis (TW Smartcard)\\Yilan City\\ML model\\optimized_results\\test_metrics.json",
+    "source_sha256": "d6b8f40c36972493cb6fadd3f576688a2a7cd5d7fee3bc6289a47945723ef633",
+    "file": "data/ml/models/test_metrics.json",
+    "sha256": "d6b8f40c36972493cb6fadd3f576688a2a7cd5d7fee3bc6289a47945723ef633",
+    "transformation": "Byte-identical copy"
+  },
+  {
+    "source": "E:\\On-demand Transport Service\\Analysis\\6_Agent-based Modelling\\A_OD Analysis (TW Smartcard)\\Yilan City\\ML model\\optimized_results\\test_metrics_by_service.csv",
+    "source_sha256": "b86413f095e96e468ec67c7355e79495119cab12452ac53af087aab994d92393",
+    "file": "data/ml/models/test_metrics_by_service.csv",
+    "sha256": "b86413f095e96e468ec67c7355e79495119cab12452ac53af087aab994d92393",
+    "transformation": "Byte-identical copy"
+  },
+  {
+    "source": "E:\\On-demand Transport Service\\Analysis\\6_Agent-based Modelling\\A_OD Analysis (TW Smartcard)\\Yilan City\\ML model\\optimized_results\\regional_rate_validation.csv",
+    "source_sha256": "750aac2d7abaeec3b139dc4188ca342fddf70e70b1bc6fc421066cd4fbe34f2d",
+    "file": "data/ml/models/regional_rate_validation.csv",
+    "sha256": "750aac2d7abaeec3b139dc4188ca342fddf70e70b1bc6fc421066cd4fbe34f2d",
+    "transformation": "Byte-identical copy"
+  },
+  {
+    "source": "E:\\On-demand Transport Service\\Analysis\\6_Agent-based Modelling\\A_OD Analysis (TW Smartcard)\\Yilan City\\ML model\\optimized_results\\generation_validation.csv",
+    "source_sha256": "f4c798475ef86993d460c268161f986a23fb1968cf5d5f3fea56fc1e2c471b3d",
+    "file": "data/ml/models/generation_validation.csv",
+    "sha256": "f4c798475ef86993d460c268161f986a23fb1968cf5d5f3fea56fc1e2c471b3d",
+    "transformation": "Byte-identical copy"
+  },
+  {
+    "source": "E:\\On-demand Transport Service\\Analysis\\6_Agent-based Modelling\\A_OD Analysis (TW Smartcard)\\Yilan City\\ML model\\optimized_results\\validation_candidates.csv",
+    "source_sha256": "35635b767ae5d1e9aba8a323458505f926f8e3094e28acb42f0aa7abd0f45238",
+    "file": "data/ml/models/validation_candidates.csv",
+    "sha256": "35635b767ae5d1e9aba8a323458505f926f8e3094e28acb42f0aa7abd0f45238",
+    "transformation": "Byte-identical copy"
+  },
+  {
+    "source": "E:\\On-demand Transport Service\\Analysis\\6_Agent-based Modelling\\A_OD Analysis (TW Smartcard)\\Yilan City\\ML model\\trip_estimation_optimized.py",
+    "source_sha256": "7c511004bf04d9e73a96f27046484d5979e348124482fd28d4b2093991a8181f",
+    "file": "drt_toolkit/ml_source.py",
+    "sha256": "aa8630a5aa8af261dc4a9017e73429835c7f2c8cf1f31afb4be9938c7e2d0e6d",
+    "transformation": "ML implementation copied; DEFAULT_ROOT made project-relative; forecasting/training formulas unchanged; practitioner-facing comments, instructions and descriptive text revised; numerical model settings and program structure unchanged"
+  },
+  {
+    "source": "E:\\On-demand Transport Service\\Analysis\\Data\\Road Network\\Network_Yilan.csv",
+    "source_sha256": "249da25340c251d070078bc0012f9c8360a9550f92e281a3fff3a8e363f030a9",
+    "file": "data/simulation/Network_Yilan.csv",
+    "sha256": "249da25340c251d070078bc0012f9c8360a9550f92e281a3fff3a8e363f030a9",
+    "transformation": "Byte-identical copy"
+  },
+  {
+    "source": "E:\\On-demand Transport Service\\Analysis\\Data\\Road Network\\osm_weight.csv",
+    "source_sha256": "3c2f22bf2b1133c51a91bd617a204d1e4603f443a01cd3505d83733aeafe6e72",
+    "file": "data/simulation/osm_weight.csv",
+    "sha256": "3c2f22bf2b1133c51a91bd617a204d1e4603f443a01cd3505d83733aeafe6e72",
+    "transformation": "Byte-identical copy"
+  },
+  {
+    "source": "E:\\On-demand Transport Service\\Analysis\\6_Agent-based Modelling\\B_ABM (TW)\\Data\\depot.csv",
+    "source_sha256": "3637efec876698126958b5f9d8e461d815caa37c48a13097a376a8ac24dc5966",
+    "file": "data/simulation/depot.csv",
+    "sha256": "3637efec876698126958b5f9d8e461d815caa37c48a13097a376a8ac24dc5966",
+    "transformation": "Byte-identical copy"
+  },
+  {
+    "source": "E:\\On-demand Transport Service\\Analysis\\6_Agent-based Modelling\\B_ABM (TW)\\Data\\DRT Grid (Buffer).gpkg",
+    "source_sha256": "a304158dbcec10ddd23958b5fdb310a759a013d2118d22776d9eecbfbd2ada8a",
+    "file": "data/spatial/service_grids.gpkg",
+    "sha256": "a304158dbcec10ddd23958b5fdb310a759a013d2118d22776d9eecbfbd2ada8a",
+    "transformation": "Byte-identical copy"
+  },
+  {
+    "source": "E:\\On-demand Transport Service\\Analysis\\6_Agent-based Modelling\\B_ABM (TW)\\Data\\黃1路線與站牌.rds",
+    "source_sha256": "e377d6c9bb093b688e966db72f075063c48dc6b7cd5994795d2061b9fad82119",
+    "file": "data/spatial/route_and_stops.rds",
+    "sha256": "e377d6c9bb093b688e966db72f075063c48dc6b7cd5994795d2061b9fad82119",
+    "transformation": "Byte-identical copy"
+  },
+  {
+    "source": "E:\\On-demand Transport Service\\Analysis\\6_Agent-based Modelling\\B_ABM (TW)\\Economic Output.xlsx",
+    "source_sha256": "504300a96dd3d99467820de94b31fef1dad3b90e4d456e7c2ad48af6ebc0c9ad",
+    "file": "data/reference/Economic Output.xlsx",
+    "sha256": "504300a96dd3d99467820de94b31fef1dad3b90e4d456e7c2ad48af6ebc0c9ad",
+    "transformation": "Byte-identical copy"
+  },
+  {
+    "source": "E:\\On-demand Transport Service\\Analysis\\6_Agent-based Modelling\\B_ABM (TW)\\result\\ddf_indicator.csv",
+    "source_sha256": "98165a1edbac487021b49d469bedadf849941af8b8f4c7e6e6a5e5bf3802a9e4",
+    "file": "data/reference/legacy_simulation_indicators.csv",
+    "sha256": "d57bfd0fb303553c7ce9333a45debb0f7a1da9802f2a4ba9da2f5028aaedb080",
+    "transformation": "Byte-identical copy; 26 October 2026: translate COUNTYNAME to English; all other field strings and row ordering unchanged"
+  },
+  {
+    "source": "E:\\On-demand Transport Service\\Analysis\\6_Agent-based Modelling\\B_ABM (TW)\\Data\\simulation\\ILA_1_BUFFER_200.csv",
+    "source_sha256": "ff2a49b860388ccaccb63e2aaa1e3963108e0a76f2538224d8776d52dd8f3695",
+    "file": "data/reference/legacy_requests_200.csv",
+    "sha256": "ff2a49b860388ccaccb63e2aaa1e3963108e0a76f2538224d8776d52dd8f3695",
+    "transformation": "Byte-identical copy"
+  },
+  {
+    "source": "E:\\On-demand Transport Service\\Analysis\\6_Agent-based Modelling\\B_ABM (TW)\\Data\\simulation\\ILA_1_BUFFER_500.csv",
+    "source_sha256": "290f40f79afa3a2f7c486aff8f34e585d1e89083981bbd557686749f7fb51e77",
+    "file": "data/reference/legacy_requests_500.csv",
+    "sha256": "290f40f79afa3a2f7c486aff8f34e585d1e89083981bbd557686749f7fb51e77",
+    "transformation": "Byte-identical copy"
+  },
+  {
+    "source": "E:\\On-demand Transport Service\\Analysis\\5_DRTS DEA\\TW\\Data\\Model Data New.csv",
+    "source_sha256": "f5043e3307730244fd3581b1c26ae4049683ef4364e730f1733e39560f19d8aa",
+    "file": "data/scenarios/scenario_characteristics.csv",
+    "sha256": "37ead32f85aa941ac8fd3c38b49a1eeac8582540175237ef6c66b1a1570d1012",
+    "transformation": "Extract eight existing precomputed scenario context rows; omit legacy trip and utilization measurements; 26 October 2026: translate COUNTYNAME to English; all other field strings and row ordering unchanged"
+  },
+  {
+    "source": "E:\\On-demand Transport Service\\Analysis\\6_Agent-based Modelling\\A_OD Analysis (TW Smartcard)\\Yilan City\\model\\add FR.R",
+    "source_sha256": "7d78f5392b15455e9edad2ef92f724ba89c00b3aaedcf7b185d0c4a91acc06cc",
+    "file": "reference/hurdle_tweedie_specification.R",
+    "sha256": "1ac3fa15d0f4f96139055545ce4d18daa76b862f545f4e3fb7a1a974564ae0df",
+    "transformation": "Extract both gam() specifications only; exclude all catchment and spatial feature construction"
+  },
+  {
+    "source": "E:\\On-demand Transport Service\\Analysis\\5_DRTS DEA\\TW\\Data\\tobit_socio.csv",
+    "source_sha256": "ec6ec09213bd201770c18eb90b86606c2eb52891c28d4920c40418caaf7a6b31",
+    "file": "data/tobit/tobit_socio.csv",
+    "sha256": "cb09c1fa40f36cedfa25c32ddc86af2b15446c46b706f558067657b540f01919",
+    "transformation": "Filter to the exact 200 historical RouteIDs; preserve all 81 supplied columns. Source GroupEff, MetaEff, TGR and ClusterName are archived input fields only, never regression outcomes.; 26 October 2026: translate COUNTYNAME to English; all other field strings and row ordering unchanged"
+  }
+]

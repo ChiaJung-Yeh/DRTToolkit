@@ -1,8 +1,0 @@
-﻿ServiceIntention,Population,DayworkPop,KidsTeen,Elderly,Indigenous,School,MedicalService,TransportHub,Amenity,Shop,TourismComment
-SI_LocalCentre,1,0,0,0,0,0,0,1,1,1,0
-SI_Education,0,0,1,0,0,1,0,0,0,0,0
-SI_Medicare,0,0,0,1,0,0,1,0,0,0,0
-SI_Elderly,0,0,0,1,0,0,0,0,0,0,0
-SI_Indigenous,0,0,0,0,1,0,0,0,0,0,0
-SI_Substitution,0,1,0,0,0,0,0,0,0,0,0
-SI_Tourism,0,0,0,0,0,0,0,1,0,0,1

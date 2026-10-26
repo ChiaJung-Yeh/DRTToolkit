@@ -1,0 +1,8 @@
+{
+  "currency": "TWD",
+  "fuel_cost_per_km": 6.5,
+  "monthly_driver_wage": 40000,
+  "wage_operating_days": 30,
+  "fare_per_passenger": 20,
+  "source": "Economic Output.xlsx cells M2, M5, M6, M7; one driver cost per vehicle; monthly wage divided by 30 operating days; no new wage or fare data are inferred."
+}

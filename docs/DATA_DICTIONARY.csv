@@ -1,65 +1,193 @@
-﻿Table,Field,Description,Unit,Role,Type,Missing,ObservedMin,ObservedMax
-historical,RouteID,Unique decision-making unit ID,identifier,Required,str,0,,
-historical,COUNTYNAME,County or local administrative name,text,Metadata,str,0,,
-historical,RouteName,Service route name,text,Metadata,str,0,,
-historical,SubRouteName,Subroute name,text,Metadata,str,0,,
-historical,OpeType,Route/zone operation geometry classification,text,Metadata,str,0,,
-historical,OpeName,Operational reporting name,text,Metadata,str,0,,
-historical,TotalTrips_Fixed,Vehicle service trips incl. empty in Fixed operation; already monthly averages in supplied CSV,vehicle trips/month,Historical component,float64,0,0.0,748.65625
-historical,TripsNoPax_Fixed,Vehicle service trips without passengers in Fixed operation; already monthly averages in supplied CSV,vehicle trips/month,Historical component,float64,0,0.0,386.666666666667
-historical,VKT_Fixed,Vehicle kilometres in Fixed operation; already monthly averages in supplied CSV,vehicle km/month,Historical component,float64,0,0.0,18717.21875
-historical,Patronage_Fixed,Passenger boardings in Fixed operation; already monthly averages in supplied CSV,boardings/month,Historical component,float64,0,0.0,2906.75
-historical,Revenue_Fixed,Fare revenue in Fixed operation; already monthly averages in supplied CSV,local currency/month,Historical component,float64,0,0.0,128110.703125
-historical,TotalTrips_Booking,Vehicle service trips incl. empty in Booking operation; already monthly averages in supplied CSV,vehicle trips/month,Historical component,float64,0,0.0,956.5
-historical,TripsNoPax_Booking,Vehicle service trips without passengers in Booking operation; already monthly averages in supplied CSV,vehicle trips/month,Historical component,float64,0,0.0,20.4736842105263
-historical,VKT_Booking,Vehicle kilometres in Booking operation; already monthly averages in supplied CSV,vehicle km/month,Historical component,float64,0,0.0,19732.8166666667
-historical,Patronage_Booking,Passenger boardings in Booking operation; already monthly averages in supplied CSV,boardings/month,Historical component,float64,0,0.0,3174.33333333333
-historical,Revenue_Booking,Fare revenue in Booking operation; already monthly averages in supplied CSV,local currency/month,Historical component,float64,0,0.0,33982.7
-historical,Period_min,First observed reporting month,YYYY-MM,Metadata,str,0,,
-historical,Period_max,Last observed reporting month,YYYY-MM,Metadata,str,0,,
-historical,TotalMonth,"Number of observed reporting months, not necessarily continuous",months,Metadata,int64,0,1.0,32.0
-historical,Deviation_Reservation,Reservation-based route deviation indicator,binary,Regression/context,int64,0,0.0,1.0
-historical,Hail,Hail-based flexibility indicator,binary,Regression/context,int64,0,0.0,1.0
-historical,P2P,Point-to-point service indicator,binary,Regression/context,int64,0,0.0,1.0
-historical,Booking,Booking operation observed indicator,binary,Context,int64,0,0.0,1.0
-historical,ServiceType,Fixed-Route / Flexible Fixed-Route / Point-to-Point,category,Required,str,0,,
-historical,FleetNum,Vehicles attributed to service,vehicles,DEA input,int64,0,1.0,36.0
-historical,Shared,Shared-fleet indicator,binary,Context,int64,0,0.0,1.0
-historical,Bus,Bus vehicles attributed to service,vehicles,Context,int64,0,0.0,1.0
-historical,Minibus,Minibus vehicles attributed to service,vehicles,Context,int64,0,0.0,5.0
-historical,Car,Car vehicles attributed to service,vehicles,Context,int64,0,0.0,36.0
-historical,OperatorType,Operator category or combined categories,text,Regression/context,str,0,,
-historical,MonthlyTrips,Monthly vehicle service trips incl. empty trips,vehicle trips/month,DEA input,float64,0,1.0,956.5
-historical,MonthlyPatronage,Monthly passenger boardings,boardings/month,DEA output,float64,0,0.0,3597.375
-historical,MonthlyVKT,Monthly vehicle kilometres,vehicle km/month,DEA input,float64,0,5.0,19732.8166666667
-historical,Util_Rate,1 - empty vehicle trips / total vehicle trips,fraction 0-1,DEA output,float64,0,0.0,1.0
-historical,Population,Population in the declared service catchment,people,SI output,int64,0,104.0,202989.0
-historical,DayworkPop,Daytime/work population in service catchment,people,SI output,int64,0,6.0,191334.0
-historical,KidsTeen,Children/teen population in service catchment; use source age definition,people,SI output,int64,0,4.0,16727.0
-historical,Elderly,Elderly population in service catchment; use source age definition,people,SI output,int64,0,22.0,47546.0
-historical,Indigenous,Indigenous population in service catchment,people,SI output,int64,0,0.0,21110.0
-historical,School,Schools in service catchment,count,SI output,int64,0,0.0,42.0
-historical,MedicalService,Medical-service destinations in service catchment,count,SI output,int64,0,0.0,378.0
-historical,TransportHub,Transport hubs in service catchment,count,SI output,int64,0,0.0,15.0
-historical,Amenity,Amenity destinations in service catchment,count,SI output,int64,0,0.0,183.0
-historical,Shop,Shops in service catchment,count,SI output,int64,0,0.0,554.0
-historical,TourismComment,Tourism review/comment proxy from source; not tourist boardings,count/proxy,SI output,int64,0,0.0,237153.0
-historical,SI_Education,Service-intention flag: Education,binary 0/1,Required intention,int64,0,0.0,1.0
-historical,SI_Elderly,Service-intention flag: Elderly,binary 0/1,Required intention,int64,0,0.0,1.0
-historical,SI_Indigenous,Service-intention flag: Indigenous,binary 0/1,Required intention,int64,0,0.0,1.0
-historical,SI_LocalCentre,Service-intention flag: LocalCentre,binary 0/1,Required intention,int64,0,0.0,1.0
-historical,SI_Medicare,Service-intention flag: Medicare,binary 0/1,Required intention,int64,0,0.0,1.0
-historical,SI_Substitution,Service-intention flag: Substitution,binary 0/1,Required intention,int64,0,0.0,1.0
-historical,SI_Tourism,Service-intention flag: Tourism,binary 0/1,Required intention,int64,0,0.0,1.0
-historical,KMCost,Cost per kilometre; not monthly total cost,local currency/vehicle km,DEA input,float64,0,25.0,62.388
-historical,Population_NM,Min-max normalized Population (unused by default),dimensionless 0-1,Alternative SI output,float64,0,0.0,1.0
-historical,DayworkPop_NM,Min-max normalized DayworkPop (unused by default),dimensionless 0-1,Alternative SI output,float64,0,0.0,1.0
-historical,KidsTeen_NM,Min-max normalized KidsTeen (unused by default),dimensionless 0-1,Alternative SI output,float64,0,0.0,1.0
-historical,Elderly_NM,Min-max normalized Elderly (unused by default),dimensionless 0-1,Alternative SI output,float64,0,0.0,1.0
-historical,Indigenous_NM,Min-max normalized Indigenous (unused by default),dimensionless 0-1,Alternative SI output,float64,0,0.0,1.0
-historical,School_NM,Min-max normalized School (unused by default),dimensionless 0-1,Alternative SI output,float64,0,0.0,1.0
-historical,MedicalService_NM,Min-max normalized MedicalService (unused by default),dimensionless 0-1,Alternative SI output,float64,0,0.0,1.0
-historical,TransportHub_NM,Min-max normalized TransportHub (unused by default),dimensionless 0-1,Alternative SI output,float64,0,0.0,1.0
-historical,Amenity_NM,Min-max normalized Amenity (unused by default),dimensionless 0-1,Alternative SI output,float64,0,0.0,1.0
-historical,Shop_NM,Min-max normalized Shop (unused by default),dimensionless 0-1,Alternative SI output,float64,0,0.0,1.0
-historical,TourismComment_NM,Min-max normalized TourismComment (unused by default),dimensionless 0-1,Alternative SI output,float64,0,0.0,1.0
+﻿Table,Field,Description,Unit,Type,Missing,ObservedMin,ObservedMax
+evaluation,RouteID,Unique decision-making unit ID,identifier,str,0,,
+evaluation,COUNTYNAME,County or local administrative name,text,str,0,,
+evaluation,RouteName,Service route name,text,str,0,,
+evaluation,SubRouteName,Subroute name,text,str,0,,
+evaluation,OpeType,Route/zone operation geometry classification,text,str,0,,
+evaluation,OpeName,Operational reporting name,text,str,0,,
+evaluation,TotalTrips_Fixed,Vehicle service trips incl. empty in Fixed operation; already monthly averages in supplied CSV,vehicle trips/month,float64,0,0.0,748.65625
+evaluation,TripsNoPax_Fixed,Vehicle service trips without passengers in Fixed operation; already monthly averages in supplied CSV,vehicle trips/month,float64,0,0.0,369.625
+evaluation,VKT_Fixed,Vehicle kilometres in Fixed operation; already monthly averages in supplied CSV,vehicle km/month,float64,0,0.0,18717.21875
+evaluation,Patronage_Fixed,Passenger boardings in Fixed operation; already monthly averages in supplied CSV,boardings/month,float64,0,0.0,2906.75
+evaluation,Revenue_Fixed,Fare revenue in Fixed operation; already monthly averages in supplied CSV,local currency/month,float64,0,0.0,43613.5
+evaluation,TotalTrips_Booking,Vehicle service trips incl. empty in Booking operation; already monthly averages in supplied CSV,vehicle trips/month,float64,0,0.0,956.5
+evaluation,TripsNoPax_Booking,Vehicle service trips without passengers in Booking operation; already monthly averages in supplied CSV,vehicle trips/month,float64,0,0.0,20.4736842105263
+evaluation,VKT_Booking,Vehicle kilometres in Booking operation; already monthly averages in supplied CSV,vehicle km/month,float64,0,0.0,19732.8166666667
+evaluation,Patronage_Booking,Passenger boardings in Booking operation; already monthly averages in supplied CSV,boardings/month,float64,0,0.0,3174.33333333333
+evaluation,Revenue_Booking,Fare revenue in Booking operation; already monthly averages in supplied CSV,local currency/month,float64,0,0.0,33982.7
+evaluation,Period_min,First observed reporting month,YYYY-MM,str,0,,
+evaluation,Period_max,Last observed reporting month,YYYY-MM,str,0,,
+evaluation,TotalMonth,"Number of observed reporting months, not necessarily continuous",months,int64,0,1.0,32.0
+evaluation,Deviation_Reservation,Reservation-based route deviation indicator,binary,int64,0,0.0,1.0
+evaluation,Hail,Hail-based flexibility indicator,binary,int64,0,0.0,1.0
+evaluation,P2P,Point-to-point service indicator,binary,int64,0,0.0,1.0
+evaluation,Booking,Booking operation observed indicator,binary,int64,0,0.0,1.0
+evaluation,ServiceType,Fixed-Route / Flexible Fixed-Route / Point-to-Point,category,str,0,,
+evaluation,FleetNum,Vehicles attributed to service,vehicles,int64,0,1.0,36.0
+evaluation,Shared,Shared-fleet indicator,binary,int64,0,0.0,1.0
+evaluation,Bus,Bus vehicles attributed to service,vehicles,int64,0,0.0,0.0
+evaluation,Minibus,Minibus vehicles attributed to service,vehicles,int64,0,0.0,3.0
+evaluation,Car,Car vehicles attributed to service,vehicles,int64,0,0.0,36.0
+evaluation,OperatorType,Operator category or combined categories,text,str,0,,
+evaluation,MonthlyTrips,Monthly vehicle service trips incl. empty trips,vehicle trips/month,float64,0,1.0,956.5
+evaluation,MonthlyPatronage,Monthly passenger boardings,boardings/month,float64,0,0.0,3597.375
+evaluation,MonthlyVKT,Monthly vehicle kilometres,vehicle km/month,float64,0,5.0,19732.8166666667
+evaluation,Util_Rate,1 - empty vehicle trips / total vehicle trips,fraction 0-1,float64,0,0.0,1.0
+evaluation,Population,Population in the declared service catchment,people,int64,0,446.0,202989.0
+evaluation,DayworkPop,Daytime/work population in service catchment,people,int64,0,119.0,191334.0
+evaluation,KidsTeen,Children/teen population in service catchment; use source age definition,people,int64,0,28.0,16727.0
+evaluation,Elderly,Elderly population in service catchment; use source age definition,people,int64,0,58.0,47546.0
+evaluation,Indigenous,Indigenous population in service catchment,people,int64,0,2.0,21110.0
+evaluation,School,Schools in service catchment,count,int64,0,0.0,37.0
+evaluation,MedicalService,Medical-service destinations in service catchment,count,int64,0,0.0,378.0
+evaluation,TransportHub,Transport hubs in service catchment,count,int64,0,0.0,15.0
+evaluation,Amenity,Amenity destinations in service catchment,count,int64,0,0.0,150.0
+evaluation,Shop,Shops in service catchment,count,int64,0,0.0,441.0
+evaluation,TourismComment,Tourism review/comment proxy from source; not tourist boardings,count/proxy,int64,0,0.0,83055.0
+evaluation,SI_Education,Service-intention flag: Education,binary 0/1,int64,0,0.0,1.0
+evaluation,SI_Elderly,Service-intention flag: Elderly,binary 0/1,int64,0,0.0,1.0
+evaluation,SI_Indigenous,Service-intention flag: Indigenous,binary 0/1,int64,0,0.0,1.0
+evaluation,SI_LocalCentre,Service-intention flag: LocalCentre,binary 0/1,int64,0,0.0,1.0
+evaluation,SI_Medicare,Service-intention flag: Medicare,binary 0/1,int64,0,0.0,1.0
+evaluation,SI_Substitution,Service-intention flag: Substitution,binary 0/1,int64,0,0.0,1.0
+evaluation,SI_Tourism,Service-intention flag: Tourism,binary 0/1,int64,0,0.0,1.0
+evaluation,KMCost,Cost per kilometre; not monthly total cost,local currency/vehicle km,float64,0,25.0,60.95
+evaluation,Population_NM,Min-max normalized Population (unused by default),dimensionless 0-1,float64,0,0.0016856840081819,1.0
+evaluation,DayworkPop_NM,Min-max normalized DayworkPop (unused by default),dimensionless 0-1,float64,0,0.0005906087974577,1.0
+evaluation,KidsTeen_NM,Min-max normalized KidsTeen (unused by default),dimensionless 0-1,float64,0,0.0014351491957184,1.0
+evaluation,Elderly_NM,Min-max normalized Elderly (unused by default),dimensionless 0-1,float64,0,0.0007575119939399,1.0
+evaluation,Indigenous_NM,Min-max normalized Indigenous (unused by default),dimensionless 0-1,float64,0,9.47418285172904e-05,1.0
+evaluation,School_NM,Min-max normalized School (unused by default),dimensionless 0-1,float64,0,0.0,0.880952380952381
+evaluation,MedicalService_NM,Min-max normalized MedicalService (unused by default),dimensionless 0-1,float64,0,0.0,1.0
+evaluation,TransportHub_NM,Min-max normalized TransportHub (unused by default),dimensionless 0-1,float64,0,0.0,1.0
+evaluation,Amenity_NM,Min-max normalized Amenity (unused by default),dimensionless 0-1,float64,0,0.0,0.819672131147541
+evaluation,Shop_NM,Min-max normalized Shop (unused by default),dimensionless 0-1,float64,0,0.0,0.796028880866426
+evaluation,TourismComment_NM,Min-max normalized TourismComment (unused by default),dimensionless 0-1,float64,0,0.0,0.3502169485522
+tobit,RouteID,Unique decision-making unit ID,identifier,str,0,,
+tobit,COUNTYNAME,County or local administrative name,text,str,0,,
+tobit,RouteName,Service route name,text,str,0,,
+tobit,SubRouteName,Subroute name,text,str,0,,
+tobit,OpeType,Route/zone operation geometry classification,text,str,0,,
+tobit,OpeName,Operational reporting name,text,str,0,,
+tobit,TotalTrips_Fixed,Vehicle service trips incl. empty in Fixed operation; already monthly averages in supplied CSV,vehicle trips/month,float64,0,0.0,748.65625
+tobit,TripsNoPax_Fixed,Vehicle service trips without passengers in Fixed operation; already monthly averages in supplied CSV,vehicle trips/month,float64,0,0.0,369.625
+tobit,VKT_Fixed,Vehicle kilometres in Fixed operation; already monthly averages in supplied CSV,vehicle km/month,float64,0,0.0,18717.21875
+tobit,Patronage_Fixed,Passenger boardings in Fixed operation; already monthly averages in supplied CSV,boardings/month,float64,0,0.0,2906.75
+tobit,Revenue_Fixed,Fare revenue in Fixed operation; already monthly averages in supplied CSV,local currency/month,float64,0,0.0,43613.5
+tobit,TotalTrips_Booking,Vehicle service trips incl. empty in Booking operation; already monthly averages in supplied CSV,vehicle trips/month,float64,0,0.0,956.5
+tobit,TripsNoPax_Booking,Vehicle service trips without passengers in Booking operation; already monthly averages in supplied CSV,vehicle trips/month,float64,0,0.0,20.4736842105263
+tobit,VKT_Booking,Vehicle kilometres in Booking operation; already monthly averages in supplied CSV,vehicle km/month,float64,0,0.0,19732.8166666667
+tobit,Patronage_Booking,Passenger boardings in Booking operation; already monthly averages in supplied CSV,boardings/month,float64,0,0.0,3174.33333333333
+tobit,Revenue_Booking,Fare revenue in Booking operation; already monthly averages in supplied CSV,local currency/month,float64,0,0.0,33982.7
+tobit,Period_min,First observed reporting month,YYYY-MM,str,0,,
+tobit,Period_max,Last observed reporting month,YYYY-MM,str,0,,
+tobit,TotalMonth,"Number of observed reporting months, not necessarily continuous",months,int64,0,1.0,32.0
+tobit,Deviation_Reservation,Reservation-based route deviation indicator,binary,int64,0,0.0,1.0
+tobit,Hail,Hail-based flexibility indicator,binary,int64,0,0.0,1.0
+tobit,P2P,Point-to-point service indicator,binary,int64,0,0.0,1.0
+tobit,Booking,Booking operation observed indicator,binary,int64,0,0.0,1.0
+tobit,ServiceType,Fixed-Route / Flexible Fixed-Route / Point-to-Point,category,str,0,,
+tobit,FleetNum,Vehicles attributed to service,vehicles,int64,0,1.0,36.0
+tobit,Shared,Shared-fleet indicator,binary,int64,0,0.0,1.0
+tobit,Bus,Bus vehicles attributed to service,vehicles,int64,0,0.0,0.0
+tobit,Minibus,Minibus vehicles attributed to service,vehicles,int64,0,0.0,3.0
+tobit,Car,Car vehicles attributed to service,vehicles,int64,0,0.0,36.0
+tobit,OperatorType,Operator category or combined categories,text,str,0,,
+tobit,MonthlyTrips,Monthly vehicle service trips incl. empty trips,vehicle trips/month,float64,0,1.0,956.5
+tobit,MonthlyPatronage,Monthly passenger boardings,boardings/month,float64,0,0.0,3597.375
+tobit,MonthlyVKT,Monthly vehicle kilometres,vehicle km/month,float64,0,5.0,19732.8166666667
+tobit,Util_Rate,1 - empty vehicle trips / total vehicle trips,fraction 0-1,float64,0,0.0,1.0
+tobit,Population,Population in the declared service catchment,people,int64,0,446.0,202989.0
+tobit,DayworkPop,Daytime/work population in service catchment,people,int64,0,119.0,191334.0
+tobit,KidsTeen,Children/teen population in service catchment; use source age definition,people,int64,0,28.0,16727.0
+tobit,Elderly,Elderly population in service catchment; use source age definition,people,int64,0,58.0,47546.0
+tobit,Indigenous,Indigenous population in service catchment,people,int64,0,2.0,21110.0
+tobit,School,Schools in service catchment,count,int64,0,0.0,37.0
+tobit,MedicalService,Medical-service destinations in service catchment,count,int64,0,0.0,378.0
+tobit,TransportHub,Transport hubs in service catchment,count,int64,0,0.0,15.0
+tobit,Amenity,Amenity destinations in service catchment,count,int64,0,0.0,150.0
+tobit,Shop,Shops in service catchment,count,int64,0,0.0,441.0
+tobit,TourismComment,Tourism review/comment proxy from source; not tourist boardings,count/proxy,int64,0,0.0,83055.0
+tobit,SI_Education,Service-intention flag: Education,binary 0/1,int64,0,0.0,1.0
+tobit,SI_Elderly,Service-intention flag: Elderly,binary 0/1,int64,0,0.0,1.0
+tobit,SI_Indigenous,Service-intention flag: Indigenous,binary 0/1,int64,0,0.0,1.0
+tobit,SI_LocalCentre,Service-intention flag: LocalCentre,binary 0/1,int64,0,0.0,1.0
+tobit,SI_Medicare,Service-intention flag: Medicare,binary 0/1,int64,0,0.0,1.0
+tobit,SI_Substitution,Service-intention flag: Substitution,binary 0/1,int64,0,0.0,1.0
+tobit,SI_Tourism,Service-intention flag: Tourism,binary 0/1,int64,0,0.0,1.0
+tobit,KMCost,Cost per kilometre; not monthly total cost,local currency/vehicle km,float64,0,25.0,60.95
+tobit,Population_NM,Min-max normalized Population (unused by default),dimensionless 0-1,float64,0,0.0016856840081819,1.0
+tobit,DayworkPop_NM,Min-max normalized DayworkPop (unused by default),dimensionless 0-1,float64,0,0.0005906087974577,1.0
+tobit,KidsTeen_NM,Min-max normalized KidsTeen (unused by default),dimensionless 0-1,float64,0,0.0014351491957184,1.0
+tobit,Elderly_NM,Min-max normalized Elderly (unused by default),dimensionless 0-1,float64,0,0.0007575119939399,1.0
+tobit,Indigenous_NM,Min-max normalized Indigenous (unused by default),dimensionless 0-1,float64,0,9.47418285172904e-05,1.0
+tobit,School_NM,Min-max normalized School (unused by default),dimensionless 0-1,float64,0,0.0,0.880952380952381
+tobit,MedicalService_NM,Min-max normalized MedicalService (unused by default),dimensionless 0-1,float64,0,0.0,1.0
+tobit,TransportHub_NM,Min-max normalized TransportHub (unused by default),dimensionless 0-1,float64,0,0.0,1.0
+tobit,Amenity_NM,Min-max normalized Amenity (unused by default),dimensionless 0-1,float64,0,0.0,0.819672131147541
+tobit,Shop_NM,Min-max normalized Shop (unused by default),dimensionless 0-1,float64,0,0.0,0.796028880866426
+tobit,TourismComment_NM,Min-max normalized TourismComment (unused by default),dimensionless 0-1,float64,0,0.0,0.3502169485522
+tobit,GroupEff,Source national-sample group score; ignored and replaced for regression,dimensionless,float64,0,0.758532144769933,1.0
+tobit,MetaEff,Source national-sample meta score; ignored and replaced for regression,dimensionless,float64,0,0.730455524050798,1.0
+tobit,ClusterName,Source group label; replaced by newly joined evaluation output,category,str,0,,
+tobit,TGR,Source national-sample ratio; ignored and replaced for regression,dimensionless,float64,0,0.922885844075586,1.0
+tobit,AREA,Existing service area measure from the supplied explanatory table,square km,float64,0,1.57007868728826,1052.21037614747
+tobit,KidsTeen_per,Existing KidsTeen / Population share,fraction,float64,0,0.0334821428571429,0.122527737578389
+tobit,Elderly_per,Existing Elderly / Population share,fraction,float64,0,0.0909090909090909,0.331636980491942
+tobit,PopDensity,Existing Population / AREA,people per square km,float64,0,7.84037526120684,20819.1140357518
+tobit,DayworkPopDensity,Existing DayworkPop / AREA / 1000,thousand people per square km,float64,0,0.0024505914547801,19.6237449562121
+tobit,Operator_Bus,Supplied operator-category indicator,binary,int64,0,0.0,1.0
+tobit,Operator_Charter,Supplied operator-category indicator,binary,int64,0,0.0,0.0
+tobit,Operator_CityCouncil,Supplied operator-category indicator,binary,int64,0,0.0,1.0
+tobit,Operator_NGO,Supplied operator-category indicator,binary,int64,0,0.0,1.0
+tobit,Operator_Taxi,Supplied operator-category indicator,binary,int64,0,0.0,1.0
+tobit,BusTrips,Existing conventional bus trip supply measure,source reporting basis,int64,0,0.0,3381.0
+tobit,NumBusRoute,Existing count of conventional bus routes,routes,int64,0,0.0,151.0
+tobit,PTOverlap_per,Existing overlap share with conventional public-transport access coverage,fraction,float64,0,0.0,1.00000000000012
+demand,GridID_D,Source numeric origin/destination grid identifier,identifier,int64,0,17.0,876.0
+demand,GridID_O,Source numeric origin/destination grid identifier,identifier,int64,0,17.0,876.0
+demand,Hour,Departure hour,integer 0-23,int64,0,6.0,22.0
+demand,FixedRoute,Fixed-route observation indicator,binary,int64,0,0.0,1.0
+demand,Trips,Observed mean passenger boardings per OD-hour of a representative day; not raw integer counts,passengers per OD-hour-day,float64,0,0.0,4.4
+demand,TotalPop_O,Prepared grid attribute for origin (_O) or destination (_D); retained without catchment calculation,source units,int64,0,0.0,3180.0
+demand,HighSchoolStudent_O,Prepared grid attribute for origin (_O) or destination (_D); retained without catchment calculation,source units,int64,0,0.0,184.0
+demand,Elderly_O,Prepared grid attribute for origin (_O) or destination (_D); retained without catchment calculation,source units,int64,0,0.0,776.0
+demand,TransportHub_O,Prepared grid attribute for origin (_O) or destination (_D); retained without catchment calculation,source units,int64,0,0.0,2.0
+demand,Amenity_O,Prepared grid attribute for origin (_O) or destination (_D); retained without catchment calculation,source units,int64,0,0.0,24.0
+demand,Shop_O,Prepared grid attribute for origin (_O) or destination (_D); retained without catchment calculation,source units,int64,0,0.0,41.0
+demand,Hospital_O,Prepared grid attribute for origin (_O) or destination (_D); retained without catchment calculation,source units,int64,0,0.0,2.0
+demand,elementary_O,Prepared grid attribute for origin (_O) or destination (_D); retained without catchment calculation,source units,int64,0,0.0,3.0
+demand,junior_O,Prepared grid attribute for origin (_O) or destination (_D); retained without catchment calculation,source units,int64,0,0.0,1.0
+demand,senior_O,Prepared grid attribute for origin (_O) or destination (_D); retained without catchment calculation,source units,int64,0,0.0,1.0
+demand,School_O,Prepared grid attribute for origin (_O) or destination (_D); retained without catchment calculation,source units,int64,0,0.0,3.0
+demand,Income_ave_O,Prepared grid attribute for origin (_O) or destination (_D); retained without catchment calculation,source units,int64,0,465.0,1165.0
+demand,Income_med_O,Prepared grid attribute for origin (_O) or destination (_D); retained without catchment calculation,source units,int64,0,339.0,673.0
+demand,Downtown_O,Prepared grid attribute for origin (_O) or destination (_D); retained without catchment calculation,source units,bool,0,0.0,1.0
+demand,TotalPop_D,Prepared grid attribute for origin (_O) or destination (_D); retained without catchment calculation,source units,int64,0,0.0,3180.0
+demand,HighSchoolStudent_D,Prepared grid attribute for origin (_O) or destination (_D); retained without catchment calculation,source units,int64,0,0.0,184.0
+demand,Elderly_D,Prepared grid attribute for origin (_O) or destination (_D); retained without catchment calculation,source units,int64,0,0.0,776.0
+demand,TransportHub_D,Prepared grid attribute for origin (_O) or destination (_D); retained without catchment calculation,source units,int64,0,0.0,2.0
+demand,Amenity_D,Prepared grid attribute for origin (_O) or destination (_D); retained without catchment calculation,source units,int64,0,0.0,24.0
+demand,Shop_D,Prepared grid attribute for origin (_O) or destination (_D); retained without catchment calculation,source units,int64,0,0.0,41.0
+demand,Hospital_D,Prepared grid attribute for origin (_O) or destination (_D); retained without catchment calculation,source units,int64,0,0.0,2.0
+demand,elementary_D,Prepared grid attribute for origin (_O) or destination (_D); retained without catchment calculation,source units,int64,0,0.0,3.0
+demand,junior_D,Prepared grid attribute for origin (_O) or destination (_D); retained without catchment calculation,source units,int64,0,0.0,1.0
+demand,senior_D,Prepared grid attribute for origin (_O) or destination (_D); retained without catchment calculation,source units,int64,0,0.0,1.0
+demand,School_D,Prepared grid attribute for origin (_O) or destination (_D); retained without catchment calculation,source units,int64,0,0.0,3.0
+demand,Income_ave_D,Prepared grid attribute for origin (_O) or destination (_D); retained without catchment calculation,source units,int64,0,465.0,1165.0
+demand,Income_med_D,Prepared grid attribute for origin (_O) or destination (_D); retained without catchment calculation,source units,int64,0,339.0,673.0
+demand,Downtown_D,Prepared grid attribute for origin (_O) or destination (_D); retained without catchment calculation,source units,bool,0,0.0,1.0
+demand,FR_share,Historical conventional-bus overlap indicator retained in the source ML implementation,binary,int64,0,0.0,1.0
+demand,euclidist,Prepared straight-line centroid distance,km,float64,0,0.0,7.80000000000006
+demand,TotalPop000_O,Prepared population variable scaled by 1000,thousand people,float64,0,0.0,3.18
+demand,TotalPop000_D,Prepared population variable scaled by 1000,thousand people,float64,0,0.0,3.18
+demand,Elderly000_O,Prepared population variable scaled by 1000,thousand people,float64,0,0.0,0.776
+demand,Elderly000_D,Prepared population variable scaled by 1000,thousand people,float64,0,0.0,0.776
+demand,HighSchoolStudent000_O,Prepared population variable scaled by 1000,thousand people,float64,0,0.0,0.184
+demand,HighSchoolStudent000_D,Prepared population variable scaled by 1000,thousand people,float64,0,0.0,0.184
+demand,Income_med_10k_O,Prepared median-income variable scaled to ten-thousands of local currency,source income units,float64,0,33.9,67.3
+demand,Income_med_10k_D,Prepared median-income variable scaled to ten-thousands of local currency,source income units,float64,0,33.9,67.3
+demand,zero_trip,Indicator that Trips equals zero,binary,int64,0,0.0,1.0
+demand,DRTRoute,"DRT observation indicator, equal to 1 - FixedRoute",binary,int64,0,0.0,1.0
+demand,ToCBD,Origin outside and destination inside the defined CBD,binary,int64,0,0.0,1.0
+demand,FromCBD,Origin inside and destination outside the defined CBD,binary,int64,0,0.0,1.0

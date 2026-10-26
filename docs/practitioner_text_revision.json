@@ -1,0 +1,33 @@
+{
+  "purpose": "Practitioner-facing script text",
+  "analysis_rerun": false,
+  "changes": "Comments, docstrings, notebook guidance, messages and descriptive provenance text only",
+  "changed_files": [
+    "desktop_scripts/desktop_helpers.py",
+    "desktop_scripts/desktop_common.R",
+    "desktop_scripts/02_Performance_Drivers.R",
+    "desktop_scripts/03_Demand_Estimation.R",
+    "desktop_scripts/01_Performance_Evaluation.py",
+    "desktop_scripts/04_Demand_Prediction.ipynb",
+    "desktop_scripts/04_Demand_Prediction.py",
+    "desktop_scripts/06_Service_Comparison.ipynb",
+    "desktop_scripts/06_Service_Comparison.py",
+    "desktop_scripts/00_Run_All.ipynb",
+    "desktop_scripts/00_Run_All.py",
+    "desktop_scripts/01_Performance_Evaluation.ipynb",
+    "desktop_scripts/05_Operational_Simulation.ipynb",
+    "desktop_scripts/05_Operational_Simulation.py",
+    "drt_toolkit/evaluation.py",
+    "drt_toolkit/ml_source.py",
+    "drt_toolkit/pipeline.py",
+    "drt_toolkit/simulation.py",
+    "drt_toolkit/r/demand.R",
+    "DRT_Toolkit_Walkthrough.ipynb",
+    "desktop_scripts/README_DIRECT_RUN.md"
+  ],
+  "Python_structure_and_numeric_settings_unchanged": true,
+  "notebook_outputs_and_execution_counters_preserved": true,
+  "notebooks_reviewed": 6,
+  "backup": "E:\\On-demand Transport Service\\Analysis\\7_Toolkit_backups\\before_practitioner_text_20261026_020435.zip",
+  "R_syntax_checked": true
+}

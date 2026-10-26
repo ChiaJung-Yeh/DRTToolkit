@@ -6,7 +6,6 @@ import pandas as pd
 from drt_toolkit.evaluation import evaluate, solve_ddf
 from drt_toolkit.simulation import Network, generate_requests, simulate
 from drt_toolkit.pipeline import bridge, run_stage
-from drt_toolkit.prepare_demand import prepare
 
 
 class ModelTests(unittest.TestCase):
@@ -79,17 +78,30 @@ class ModelTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             bridge({'bridge':{'comparable_trip_definition_confirmed':False}},pd.DataFrame())
 
-    def test_observed_day_denominator_and_zero_expansion(self):
-        trips=pd.DataFrame([dict(Date='2026-01-01',Hour=7,GridID_O='A',GridID_D='B',Trips=4)])
-        calendar=pd.DataFrame(dict(Date=['2026-01-01','2026-01-02','2026-01-03'],Split=['train','train','test']))
-        grids=pd.DataFrame([dict(GridID=x,TotalPop=1000,Elderly=100,HighSchoolStudent=50,Income_med=300,
-            School=1,Shop=2,Hospital=0,TransportHub=0,X_m=i*1000,Y_m=0) for i,x in enumerate(['A','B'])])
-        pairs=pd.DataFrame(dict(GridID_O=['A'],GridID_D=['B']))
-        train,pred=prepare(trips,calendar,grids,pairs,[7,8])
-        self.assertEqual(train[(train.Split=='train')&(train.Hour==7)].Trips.iloc[0],2)
-        self.assertEqual(train[(train.Split=='test')].Trips.sum(),0)
-        self.assertEqual(pred.euclidist.iloc[0],1)
-        self.assertEqual(pred.TotalPop000_O.iloc[0],1)
+    def test_fastest_path_distance_is_not_independent_shortest_distance(self):
+        edges=pd.DataFrame([dict(from_node='a',to_node='b',travel_time_s=1,distance_km=10),
+                            dict(from_node='a',to_node='c',travel_time_s=2,distance_km=1),
+                            dict(from_node='c',to_node='b',travel_time_s=2,distance_km=1)])
+        net=Network(edges)
+        self.assertEqual(net.route('a','b'),(1.,10.))
+
+    def test_packaged_case_scope_and_explanatory_match(self):
+        root=Path(__file__).resolve().parents[1]
+        historical=pd.read_csv(root/'data/evaluation/Model Data.csv')
+        socio=pd.read_csv(root/'data/tobit/tobit_socio.csv')
+        allowed={'Tainan City','Kaohsiung City','Yilan County','Hualien County','Taitung County','New Taipei City'}
+        self.assertEqual(len(historical),200)
+        self.assertEqual(set(historical.COUNTYNAME),allowed)
+        self.assertEqual(set(historical.RouteID),set(socio.RouteID))
+        self.assertFalse(socio.RouteID.duplicated().any())
+        self.assertTrue({'PTOverlap_per','DayworkPopDensity','Elderly_per'}<=set(socio))
+
+    def test_all_eight_packaged_scenarios(self):
+        root=Path(__file__).resolve().parents[1]
+        catalog=pd.read_csv(root/'data/scenarios/scenario_catalog.csv')
+        self.assertEqual(set(zip(catalog.Buffer,catalog.FleetNum)),
+                         {(radius,fleet) for radius in [200,500] for fleet in [2,3,4,5]})
+        self.assertEqual(len(catalog),8)
 
     def test_inactive_intention_metric_universe(self):
         d=pd.DataFrame(dict(RouteID=['A','B'],ServiceType=['Fixed-Route']*2,

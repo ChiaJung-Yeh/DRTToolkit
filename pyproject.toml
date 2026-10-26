@@ -4,10 +4,10 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "drt-planning-toolkit"
-version = "1.0.0"
+version = "1.1.0"
 description = "Integrated ex-ante DRT simulation and ex-post performance evaluation"
-requires-python = ">=3.10"
-dependencies = ["numpy>=1.26,<3", "pandas>=2.2,<3.1", "scipy>=1.13,<2"]
+requires-python = ">=3.10,<3.13"
+dependencies = ["numpy==1.26.4", "pandas==2.2.3", "scipy==1.14.1", "scikit-learn==1.5.1", "xgboost==2.1.0", "joblib==1.4.2", "matplotlib>=3.8,<3.12", "folium>=0.16,<0.21"]
 
 [project.scripts]
 drt-toolkit = "drt_toolkit.pipeline:main"

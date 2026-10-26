@@ -1,0 +1,67 @@
+{
+  "evaluation_rows": 200,
+  "regions": [
+    "Tainan City",
+    "Kaohsiung City",
+    "Yilan County",
+    "Hualien County",
+    "Taitung County",
+    "New Taipei City"
+  ],
+  "county_counts": {
+    "Kaohsiung City": 68,
+    "Taitung County": 41,
+    "Tainan City": 31,
+    "Hualien County": 31,
+    "New Taipei City": 20,
+    "Yilan County": 9
+  },
+  "groups": {
+    "Flexible Fixed-Route": 91,
+    "Fixed-Route": 80,
+    "Point-to-Point": 29
+  },
+  "demand_training_rows": 71801,
+  "original_edges": 74276,
+  "routable_edges": 74274,
+  "nodes": 34006,
+  "strong_components": 14,
+  "largest_strong_component_nodes": 33578,
+  "maximum_grid_snap_m": 1533.2036783378157,
+  "depots": [
+    {
+      "GridID": "ILA_0743",
+      "node_id": 1947,
+      "snap_distance_m": 67.10025562579563
+    },
+    {
+      "GridID": "ILA_0714",
+      "node_id": 431,
+      "snap_distance_m": 26.82465254765845
+    },
+    {
+      "GridID": "ILA_0771",
+      "node_id": 22285,
+      "snap_distance_m": 5.032650441774176
+    },
+    {
+      "GridID": "ILA_0757",
+      "node_id": 40942,
+      "snap_distance_m": 54.14293534207417
+    }
+  ],
+  "scenario_count": 8,
+  "tobit_rows": 200,
+  "tobit_fields": 81,
+  "tobit_match": "exact RouteID set and county equality; old national scores ignored",
+  "forecast_cases": {
+    "200": {
+      "rows": 307530,
+      "grids": 135
+    },
+    "500": {
+      "rows": 826540,
+      "grids": 221
+    }
+  }
+}

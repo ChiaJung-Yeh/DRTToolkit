@@ -1,0 +1,9 @@
+RouteID,Buffer,FleetNum,Capacity,StartHour,EndHourExclusive,PredictionFile,GridFile
+ILA_09_200_2,200,2,4,6,23,data/ml/dt_predict_200.csv.gz,data/spatial/scenario_grids_200.gpkg
+ILA_09_200_3,200,3,4,6,23,data/ml/dt_predict_200.csv.gz,data/spatial/scenario_grids_200.gpkg
+ILA_09_200_4,200,4,4,6,23,data/ml/dt_predict_200.csv.gz,data/spatial/scenario_grids_200.gpkg
+ILA_09_200_5,200,5,4,6,23,data/ml/dt_predict_200.csv.gz,data/spatial/scenario_grids_200.gpkg
+ILA_09_500_2,500,2,4,6,23,data/ml/dt_predict_500.csv.gz,data/spatial/scenario_grids_500.gpkg
+ILA_09_500_3,500,3,4,6,23,data/ml/dt_predict_500.csv.gz,data/spatial/scenario_grids_500.gpkg
+ILA_09_500_4,500,4,4,6,23,data/ml/dt_predict_500.csv.gz,data/spatial/scenario_grids_500.gpkg
+ILA_09_500_5,500,5,4,6,23,data/ml/dt_predict_500.csv.gz,data/spatial/scenario_grids_500.gpkg

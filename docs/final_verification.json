@@ -1,0 +1,28 @@
+{
+  "historical_DMUs": 200,
+  "matched_Tobit_DMUs": 200,
+  "changed_from_source_national_scores": {
+    "MetaEff": 25,
+    "GroupEff": 23
+  },
+  "GAM_training_rows": 71801,
+  "forecast_cases": [
+    {
+      "case": 200,
+      "rows": 307530,
+      "total_daily_demand": 36.10366106373535,
+      "reference_max_abs_error": 1.864768461173893e-10,
+      "source_sha256": "edc780450612afa2ce2cb269576db0d91199330ecedbe268aee42b93dc107c03"
+    },
+    {
+      "case": 500,
+      "rows": 826540,
+      "total_daily_demand": 38.35179598633422,
+      "reference_max_abs_error": 9.548790404212415e-11,
+      "source_sha256": "6a29c1724edee64fe8b78d6984c5e69aa7c107145244ce5e6332fc64651cfcee"
+    }
+  ],
+  "scenario_replications": 160,
+  "pooled_DMUs": 208,
+  "status": "passed"
+}

@@ -1,0 +1,33 @@
+{
+  "analysis_rerun": false,
+  "python_files_parsed": 17,
+  "notebooks_parsed": 6,
+  "R_entry_references": [
+    "02_Performance_Drivers.R",
+    "03_Demand_Estimation.R"
+  ],
+  "scope": {
+    "Yilan County": 9,
+    "New Taipei City": 20,
+    "Tainan City": 31,
+    "Taitung County": 41,
+    "Hualien County": 31,
+    "Kaohsiung City": 68
+  },
+  "DMUs_matched": 200,
+  "only_COUNTYNAME_changed": true,
+  "original_guides_preserved": true,
+  "future_desktop_run_id": "desktop_run_en",
+  "status": "static_checks_passed",
+  "R_files_parsed": 5,
+  "previous_output_files_preserved": 797,
+  "previous_manifest_hash_matches": 793,
+  "preexisting_manifest_differences": [
+    "outputs/desktop_run/demand_model_diagnostics.pdf",
+    "outputs/desktop_run/demand_sessionInfo.txt",
+    "outputs/desktop_run/manifest.json",
+    "outputs/desktop_run/tobit_sessionInfo.txt"
+  ],
+  "all_output_modifications_predate_revision": true,
+  "Word_pages_visually_checked": 12
+}

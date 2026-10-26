@@ -31,8 +31,8 @@ def unique(df, cols):
 def load_config(path):
     path = Path(path).resolve()
     cfg = json.loads(path.read_text(encoding='utf-8-sig'))
-    if cfg['demand']['source'] not in ['trained','provided']:
-        raise ValueError('demand.source must be trained or provided')
+    if cfg['demand']['source'] not in ['trained','provided','ml']:
+        raise ValueError('demand.source must be trained, provided or ml')
     root = (path.parent / cfg.get('project_root', '..')).resolve()
     for k, v in cfg['paths'].items():
         if v:

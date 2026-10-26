@@ -1,0 +1,61 @@
+{
+  "date": "2026-10-26",
+  "analysis_rerun": false,
+  "jurisdiction_labels": {
+    "臺南市": "Tainan City",
+    "高雄市": "Kaohsiung City",
+    "宜蘭縣": "Yilan County",
+    "花蓮縣": "Hualien County",
+    "臺東縣": "Taitung County",
+    "新北市": "New Taipei City"
+  },
+  "script_stems": {
+    "01_Taiwan_DRT_DDF": "01_Performance_Evaluation",
+    "02_Taiwan_DRT_Tobit": "02_Performance_Drivers",
+    "03_Demand_Hurdle_Tweedie": "03_Demand_Estimation",
+    "04_Demand_ML_Prediction": "04_Demand_Prediction",
+    "05_ABM_TW": "05_Operational_Simulation",
+    "06_Taiwan_DRT_New_Route": "06_Service_Comparison"
+  },
+  "backup": "E:\\On-demand Transport Service\\Analysis\\7_Toolkit_backups\\before_english_stage_names_20261026.zip",
+  "changed_data": [
+    {
+      "file": "data/evaluation/Model Data.csv",
+      "rows_relabelled": 200,
+      "previous_sha256": "34ffee377d84d2bbbd11383d43355092916ea83aac17d0227d2bac748b009742",
+      "sha256": "6705c3ff24ec41889bdb853596664d4a42bfd1718a9c327a8e4f19718af13eb9"
+    },
+    {
+      "file": "data/reference/legacy_scenario_model_data.csv",
+      "rows_relabelled": 8,
+      "previous_sha256": "2a363db349bbb51d5823765cb07e7380498ee72d4badd9d50501f8d898fd1edd",
+      "sha256": "95e5bcc09a0175e70bccf5a7dccc927f0636c0f0b9c8b366d7f17be85bd30cd9"
+    },
+    {
+      "file": "data/reference/legacy_simulation_indicators.csv",
+      "rows_relabelled": 8,
+      "previous_sha256": "98165a1edbac487021b49d469bedadf849941af8b8f4c7e6e6a5e5bf3802a9e4",
+      "sha256": "d57bfd0fb303553c7ce9333a45debb0f7a1da9802f2a4ba9da2f5028aaedb080"
+    },
+    {
+      "file": "data/scenarios/scenario_characteristics.csv",
+      "rows_relabelled": 8,
+      "previous_sha256": "f214ca158fb675dc4c829d2b5b95e486cc407b63e22d02e42b678a8915e9923a",
+      "sha256": "37ead32f85aa941ac8fd3c38b49a1eeac8582540175237ef6c66b1a1570d1012"
+    },
+    {
+      "file": "data/tobit/tobit_socio.csv",
+      "rows_relabelled": 200,
+      "previous_sha256": "22bc6d619c70027de8bab2b6bcecde68104cd4636e46dfecab7feb0042a4be1f",
+      "sha256": "cb09c1fa40f36cedfa25c32ddc86af2b15446c46b706f558067657b540f01919"
+    }
+  ],
+  "preserved_output_files": 797,
+  "archived_guides": {
+    "DRT_Planning_Guidebook.docx": "c6a8ade6cfa7287426f35324eb12ebc4efe435af35d99cd21f3ecea9f45c0b64",
+    "DRT_Planning_Guidebook.pdf": "8e0c4d9a5945e4e43fb354436592e6aceaa2a231dcd4ae2308f002b5be4bf878",
+    "DRT_Planning_Guidebook_v1.1.pdf": "ef23ee451c7abd6517ec2481f2ec27971f8e8a58f275be95f2bac8a16041342a",
+    "GUIDEBOOK.md": "28ee6fb080b2d49f4bbbc6b422cb73d894db17ed3cb82d99675c755214aec111",
+    "GUIDEBOOK.html": "cb7e7fbb7d0fa9e54a133fb586165b72ad3524fbc1754e44b4b7084bac668bbe"
+  }
+}

@@ -1,0 +1,3 @@
+# Optional: inspect or rebuild access-node mappings; not needed to run packaged simulations.
+geopandas>=1.0,<1.3
+pyproj>=3.7,<3.9
