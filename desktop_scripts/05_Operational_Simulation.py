@@ -22,7 +22,7 @@ print(pd.DataFrame(cfg['simulation']['scenarios']).to_string(index=False))
 print('Replications per scenario:',cfg['simulation']['replications'])
 
 
-# %% Simulate all scenarios using the road network and ML demand. Source: drt_toolkit/simulation.py.
+# %% Simulate all scenarios using the road network and forecast demand. Source: drt_toolkit/simulation.py.
 
 run('simulate')
 summary = pd.read_csv(OUT/'simulation_summary.csv')

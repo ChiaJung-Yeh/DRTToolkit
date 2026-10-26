@@ -1,4 +1,4 @@
-"""Forecast with the packaged source ML implementation and verified deployment bundle."""
+"""Generate scenario demand forecasts with the configured fitted model."""
 from pathlib import Path
 import joblib
 import numpy as np
@@ -10,12 +10,12 @@ from .common import file_hash,write_json
 
 def predict_scenarios(cfg,out):
     if sklearn.__version__!='1.5.1' or xgboost.__version__!='2.1.0':
-        raise ValueError('The bundled ML model requires scikit-learn==1.5.1 and xgboost==2.1.0. Install requirements.txt in an isolated environment.')
+        raise ValueError('The saved demand model requires the dependency versions listed in requirements.txt. Select a compatible environment.')
     from . import ml_source
     model_path=Path(cfg['paths']['ml_model'])
     expected=cfg['demand']['deployment_model_sha256']
     if file_hash(model_path)!=expected:
-        raise ValueError('ML deployment bundle hash changed; review the model configuration explicitly')
+        raise ValueError('Demand-model file hash changed; review the model configuration explicitly')
     bundle=joblib.load(model_path)
     if file_hash(cfg['paths']['demand_training'])!=bundle.get('training_source_sha256'):
         raise ValueError('dt_model.csv does not match the training source recorded in the ML bundle')
@@ -33,7 +33,7 @@ def predict_scenarios(cfg,out):
         result=ml_source.predict_in_batches(bundle,data)
         rates=result.predicted_trips.to_numpy(float)
         if not np.isfinite(rates).all() or (rates<0).any():
-            raise ValueError('ML generated invalid demand')
+            raise ValueError('The demand model generated invalid demand')
         slim=result[['Hour','GridID_O','GridID_D','predicted_trips']].rename(columns={'predicted_trips':'PredTrips'})
         slim.to_csv(out/f'ml_demand_{case}.csv.gz',index=False,compression='gzip')
         slim.groupby('Hour',as_index=False).PredTrips.sum().to_csv(out/f'ml_hourly_{case}.csv',index=False)
@@ -48,7 +48,7 @@ def predict_scenarios(cfg,out):
             max_error=float((merged.PredTrips_new-merged.PredTrips_reference).abs().max())
             calibration['reference_max_abs_error']=max_error
             if max_error>1e-7:
-                raise ValueError(f'Regenerated ML forecast differs from the source forecast: {max_error}')
+                raise ValueError(f'Regenerated demand forecast differs from the reference forecast: {max_error}')
         write_json(out/f'ml_calibration_{case}.json',calibration)
         summaries.append(dict(case=case,rows=len(slim),total_daily_demand=float(rates.sum()),
             reference_max_abs_error=calibration.get('reference_max_abs_error'),source_sha256=file_hash(source)))

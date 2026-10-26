@@ -1,4 +1,4 @@
-# Predict future DRT demand with the saved ML model
+# Predict future DRT demand with the saved demand model
 
 
 from pathlib import Path
@@ -20,7 +20,7 @@ run_r('03_Demand_Estimation.R')
 print((OUT/'demand_summary.txt').read_text(encoding='utf-8',errors='replace'))
 
 
-# %% Regenerate both complete ML forecasts using the saved model.
+# %% Regenerate both complete demand forecasts using the saved model.
 
 run('predict')
 print(pd.read_csv(OUT/'ml_prediction_summary.csv').to_string(index=False))

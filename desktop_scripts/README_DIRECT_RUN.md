@@ -4,14 +4,14 @@ Use the desktop entry files to evaluate existing services, estimate demand, simu
 
 ## Before starting
 
-Select a Python kernel containing the required packages. The saved ML model requires scikit-learn 1.5.1 and XGBoost 2.1.0. The reference installation uses the ArcPy kernel, which points to the Anaconda base interpreter. Kernel names may differ on other installations; check the interpreter and versions printed by the first code cell.
+Select a Python kernel containing the required packages. Use the dependency profile in requirements.txt for the saved demand model. The reference installation uses the ArcPy kernel, which points to the Anaconda base interpreter. Kernel names may differ on other installations; check the interpreter and compatibility messages printed by the first code cell.
 
 Check desktop_settings.json before execution. It specifies the shared configuration file, the installed Rscript.exe path and a run_id. The default configuration is config/case_study.json and the default run_id is desktop_run_en. The scripts do not install packages or create environments.
 
 ## Run the complete framework
 
 1. Open 00_Run_All.ipynb and select a compatible Python kernel.
-2. Run the first cell to check the interpreter, package versions, Rscript path and result folder.
+2. Run the first cell to check the interpreter, dependency-check messages, Rscript path and result folder.
 3. Run the remaining cells in order. Wait for each stage to finish before inspecting its downstream results.
 4. Review the principal tables and run the final case-audit cell. Results are saved under outputs/<run_id>.
 
@@ -22,7 +22,7 @@ Check desktop_settings.json before execution. It specifies the shared configurat
 | 1 | 01_Performance_Evaluation.ipynb | Evaluate existing services on group and meta frontiers | historical_scores.csv |
 | 2 | 02_Performance_Drivers.R | Estimate explanatory associations with performance | tobit_summary.txt; tobit_coefficients.csv |
 | 3 | 03_Demand_Estimation.R | Fit positive-flow and zero-flow demand models | demand_summary.txt; hurdle_tweedie_models.rds |
-| 4 | 04_Demand_Prediction.ipynb | Predict scenario demand with the saved ML model | ml_demand_200.csv.gz; ml_demand_500.csv.gz |
+| 4 | 04_Demand_Prediction.ipynb | Predict scenario demand with the saved demand model | *_demand_200.csv.gz; *_demand_500.csv.gz |
 | 5 | 05_Operational_Simulation.ipynb | Simulate requests and vehicle operations | simulation_summary.csv; simulation_daily.csv |
 | 6 | 06_Service_Comparison.ipynb | Convert monthly indicators and compare service alternatives | pooled_comparison.csv |
 
@@ -36,8 +36,8 @@ Python locates the toolkit from the working folder or its parents, with a fallba
 
 ## Interpret the results
 
-The packaged example contains the same 200 DMUs in the operational and Tobit tables. Tobit outcomes are recalculated for this sample. Demand estimation examines relationships and model diagnostics; future operational demand comes from the saved ML model. Sociodemographic variables are prepared inputs, so no catchment analysis is performed.
+The packaged example contains the same 200 DMUs in the operational and Tobit tables. Tobit outcomes are recalculated for this sample. Demand estimation examines relationships and model diagnostics; future operational demand comes from the saved demand model. Sociodemographic variables are prepared inputs, so no catchment analysis is performed.
 
 The DDF uses SciPy HiGHS. The event-driven simulator represents flexible pooled operations; it does not replay recorded vehicle trajectories. Review model assumptions and constraints before transferring the framework to another service. Trip counts and busy-time utilization are different measures, so review the primary harmonized comparison and full-indicator sensitivity together.
 
-Read ../docs/DRT_Planning_Guidebook_v1.3.docx for detailed stage inputs, outputs and execution instructions, including the distinction between packaged and desktop workflows. Existing execution reports and archived guides document earlier runs and editions. They are historical records rather than evidence that a modified study has been rerun.
+Read ../docs/DRT_Planning_Guidebook_v1.4.docx for detailed stage inputs, outputs and execution instructions, including the distinction between packaged and desktop workflows. Existing execution reports and archived guides document earlier runs and editions. They are historical records rather than evidence that a modified study has been rerun.

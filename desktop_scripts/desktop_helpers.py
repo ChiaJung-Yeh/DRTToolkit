@@ -15,10 +15,10 @@ def check_environment():
     import numpy, pandas, scipy, sklearn, xgboost, joblib
     versions={m.__name__:m.__version__ for m in (numpy,pandas,scipy,sklearn,xgboost,joblib)}
     print('Python interpreter:',sys.executable)
-    print('Package versions:',versions)
+    print('Dependencies loaded. Compatibility is checked against the saved demand model.')
     print('Results:',OUT)
     if sklearn.__version__!='1.5.1' or xgboost.__version__!='2.1.0':
-        raise RuntimeError('The saved ML model requires scikit-learn 1.5.1 and XGBoost 2.1.0. Select a kernel with these versions. The reference installation uses the ArcPy kernel.')
+        raise RuntimeError('The selected interpreter is incompatible with the saved demand model. Use the dependency versions listed in requirements.txt.')
     if not Path(SETTINGS['rscript']).is_file():
         raise FileNotFoundError('Set rscript in desktop_settings.json to the installed Rscript.exe path')
     return versions
