@@ -155,8 +155,8 @@ The illustrative inputs support testing and learning the analysis framework. The
 
 ## Documentation and repository contents
 
-- [PDF guidebook](docs/DRT%20Planning%20Toolkit%20Guidebook.pdf): data definitions, configuration and execution.
-- [Introduction webpage](docs/DRT%20Planning%20Toolkit.html): integrated framework and interactive examples.
+- [PDF guidebook](https://github.com/ChiaJung-Yeh/DRTToolkit/blob/main/docs/DRT%20Planning%20Toolkit%20Guidebook.pdf): data definitions, configuration and execution.
+- [Introduction webpage](https://chiajung-yeh.github.io/DRTToolkit/): integrated framework and interactive examples.
 - [Desktop execution instructions](desktop_scripts/README_DIRECT_RUN.md).
 - [Data dictionary](docs/DATA_DICTIONARY.csv).
 
