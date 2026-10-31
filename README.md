@@ -4,7 +4,7 @@ An integrated framework for connecting evidence about existing demand responsive
 
 The toolkit combines **ex-post performance evaluation** and **ex-ante demand estimation and operational simulation**. Use it to benchmark existing provision, explore performance associations, test service alternatives and compare observed and proposed services using compatible indicators.
 
-Start with the [introduction webpage](docs/DRT%20Planning%20Toolkit.html) for an overview, or read the [practitioner PDF guidebook](docs/DRT%20Planning%20Toolkit%20Guidebook.pdf) for data preparation, configuration and execution.
+Start with the [introduction webpage](https://chiajung-yeh.github.io/DRTToolkit/) for an overview, or read the [practitioner PDF guidebook](https://chiajung-yeh.github.io/DRTToolkit/DRT%20Planning%20Toolkit%20Guidebook.pdf) for data preparation, configuration and execution.
 
 ## What the framework supports
 
@@ -155,7 +155,7 @@ The illustrative inputs support testing and learning the analysis framework. The
 
 ## Documentation and repository contents
 
-- [PDF guidebook](https://github.com/ChiaJung-Yeh/DRTToolkit/blob/main/docs/DRT%20Planning%20Toolkit%20Guidebook.pdf): data definitions, configuration and execution.
+- [PDF guidebook](https://chiajung-yeh.github.io/DRTToolkit/DRT%20Planning%20Toolkit%20Guidebook.pdf): data definitions, configuration and execution.
 - [Introduction webpage](https://chiajung-yeh.github.io/DRTToolkit/): integrated framework and interactive examples.
 - [Desktop execution instructions](desktop_scripts/README_DIRECT_RUN.md).
 - [Data dictionary](docs/DATA_DICTIONARY.csv).
