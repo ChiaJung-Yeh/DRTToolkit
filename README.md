@@ -147,7 +147,7 @@ Read waiting times and rejected demand alongside relative efficiency. Tobit esti
 
 ## Explore the illustrative example
 
-The packaged case contains **200 matched historical services across six jurisdictions** in Taiwan: Tainan City, Kaohsiung City, Yilan County, Hualien County, Taitung County and New Taipei City. It includes **71,801 prepared demand observations**, two demand cases and eight fleet alternatives. With 20 replications per alternative, the example produces 160 daily scenario-replication records.
+The packaged case contains **200 matched historical services across six jurisdictions** in Taiwan: Tainan City, Kaohsiung City, Yilan County, Hualien County, Taitung County and New Taipei City. It includes **71,801 prepared demand observations**, two demand cases and eight fleet alternatives.  
 
 Use [config/case_study.json](config/case_study.json) to locate the matched service tables, demand and scenario features, fitted model, roads, grids, depots and costs. Inspect formats and information flow before creating a separate study folder. Preserve the example files and review its fitted relationships, geographic conventions and operating assumptions before reuse.
 
