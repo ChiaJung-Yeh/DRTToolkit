@@ -1,75 +1,96 @@
-# DRT service planning toolkit
+# DRT Planning Toolkit
 
-Use this toolkit to connect evidence about existing demand responsive transport (DRT) services with the appraisal of new or reconfigured services. The framework combines ex-post performance evaluation and ex-ante demand estimation and operational simulation. It supports questions about fleet provision, service design, resource use and service quality.
+An integrated framework for connecting evidence about existing demand responsive transport (DRT) with the appraisal of new or reconfigured services.
 
-For a new case study, first define the planning question, prepare compatible data and review the model assumptions. Then register the study in a separate configuration file and select an execution route. The packaged case is a format reference and worked example; its geographic scope, fitted relationships and operating values are not universal defaults.
+The toolkit combines **ex-post performance evaluation** and **ex-ante demand estimation and operational simulation**. Use it to benchmark existing provision, explore performance associations, test service alternatives and compare observed and proposed services using compatible indicators.
 
-The [general practitioner guidebook](docs/DRT_Planning_Guidebook_General_v2.1.docx) gives detailed preparation and execution instructions. Browser and text editions are available as [HTML](docs/GUIDEBOOK.html) and [Markdown](docs/GUIDEBOOK.md).
+Start with the [introduction webpage](docs/DRT%20Planning%20Toolkit.html) for an overview, or read the [practitioner PDF guidebook](docs/DRT%20Planning%20Toolkit%20Guidebook.pdf) for data preparation, configuration and execution.
 
-## Define the study and analysis workflow
+## What the framework supports
 
-Specify the study area, reporting period, included services, policy objectives and proposed alternatives. Define the decision-making unit (DMU) consistently, for example one service over a common observation period. Assign each record a unique **ServiceID**, stored as text. A service observed over several periods needs distinct identifiers or consistent aggregation. Proposed alternatives must have identifiers distinct from historical records.
+- **Benchmark existing services:** assess resource use and outcomes against service-group and overall reference frontiers.
+- **Understand performance associations:** examine how service characteristics, operator attributes and local context relate to recalculated performance.
+- **Appraise future services:** estimate prospective travel patterns and test fleet, depot and operating assumptions before implementation.
+- **Compare alternatives:** bring simulated operations onto a common reporting basis and evaluate them alongside historical services.
 
-The five conceptual stages use six numbered desktop entries because demand estimation and prediction have separate entry files. The combined [00_Run_All.ipynb](desktop_scripts/00_Run_All.ipynb) runs the complete sequence. Individual notebooks and R scripts support staged execution and inspection.
+Define the planning question, study area, reporting period, evaluation unit and policy objectives before preparing inputs. The models support appraisal; choosing a preferred service also requires local priorities and operational judgement.
 
-| Framework stage | Desktop entry | Inputs | Outputs and application |
+## Analysis workflow
+
+Five conceptual stages are implemented through six numbered desktop entries. The demand stage has separate estimation and prediction files.
+
+| Stage and approach | Desktop entry | Primary inputs | Outputs and application |
 |---|---|---|---|
-| Historical performance evaluation | [01_Performance_Evaluation.ipynb](desktop_scripts/01_Performance_Evaluation.ipynb); directional distance function | Historical service resource inputs, outcomes, service types, intentions and prepared contextual indicators | Group and meta-frontier scores and peers for benchmarking |
-| Analysis of performance associations | [02_Performance_Drivers.R](desktop_scripts/02_Performance_Drivers.R); Tobit regression | Recalculated scores and service-level explanatory records matched by ServiceID and jurisdiction | Estimates and diagnostics for interpreting performance associations |
-| Demand estimation and prediction | [03_Demand_Estimation.R](desktop_scripts/03_Demand_Estimation.R); hurdle Tweedie regression; [04_Demand_Prediction.ipynb](desktop_scripts/04_Demand_Prediction.ipynb) | Observed OD-hour demand, prepared explanatory features, scenario features and a validated fitted demand model | Explanatory relationships and diagnostics; separate hourly scenario forecasts for simulation |
-| Operational simulation | [05_Operational_Simulation.ipynb](desktop_scripts/05_Operational_Simulation.ipynb); agent-based model | Forecast demand, directed roads, grid access nodes, depots, fleet and service constraints | Served and rejected requests, waits, ride times, vehicle kilometres and vehicle activity |
-| Pooled comparative evaluation | [06_Service_Comparison.ipynb](desktop_scripts/06_Service_Comparison.ipynb); monthly conversion and directional distance function | Historical and proposed indicators with compatible periods and definitions, costs and service intentions | Historical-only baselines and pooled comparative scores for service alternatives |
+| 1. Historical performance evaluation — directional distance function | [01_Performance_Evaluation.ipynb](desktop_scripts/01_Performance_Evaluation.ipynb) | Service resource inputs, operational outcomes, service types, intentions and prepared contextual indicators | Group and meta-frontier scores and peers for benchmarking |
+| 2. Performance associations — Tobit regression | [02_Performance_Drivers.R](desktop_scripts/02_Performance_Drivers.R) | Recalculated scores and explanatory records matched by ServiceID | Model estimates, specifications and diagnostics for interpreting observed differences |
+| 3. Demand estimation — hurdle Tweedie regression and scenario forecasting | [03_Demand_Estimation.R](desktop_scripts/03_Demand_Estimation.R) and [04_Demand_Prediction.ipynb](desktop_scripts/04_Demand_Prediction.ipynb) | Observed OD-hour demand, prepared features, prospective features and a compatible reviewed demand model | Explanatory relationships and diagnostics; separate hourly forecasts for simulation |
+| 4. Operational simulation — agent-based model | [05_Operational_Simulation.ipynb](desktop_scripts/05_Operational_Simulation.ipynb) | Hourly forecasts, directed roads, grid access nodes, depots, fleets, capacities and service constraints | Served and rejected requests, waits, ride times, vehicle kilometres and vehicle activity |
+| 5. Pooled comparative evaluation — monthly conversion and directional distance function | [06_Service_Comparison.ipynb](desktop_scripts/06_Service_Comparison.ipynb) | Historical and proposed indicators, costs, intentions and reviewed reporting definitions | Monthly proposed-service indicators, historical-only baselines, pooled scores and peers |
 
-Historical scores feed the Tobit models. Scenario demand forecasts feed simulation, whose outcomes are converted to monthly indicators before pooled evaluation. Explanatory demand-model fits support interpretation and diagnostics; they are not automatically the simulation forecasts. Associations do not establish causal effects.
+Historical scores feed the performance-association models. Scenario forecasts feed simulation. Simulated outcomes are converted into monthly indicators before comparison. Explanatory demand-model fits support interpretation and diagnostics; they are not automatically the deployed scenario forecasts.
 
 ## Prepare the software and workspace
 
-Keep `desktop_scripts`, `drt_toolkit`, `config`, `data` and `tests` together under the toolkit root. Use Python 3.10–3.12, Jupyter or a compatible editor, and R. Review [requirements.txt](requirements.txt) for the reference dependency versions and compatibility with the fitted demand model. R must load AER, mgcv and jsonlite. Optional spatial preparation dependencies are listed in [requirements-spatial.txt](requirements-spatial.txt).
+Keep `desktop_scripts`, `drt_toolkit`, `config`, `data` and `tests` together under one toolkit root. For another study, create `data/project_A/`, copy [config/project_template.json](config/project_template.json) to `config/project_A.json`, and retain the example inputs as a format reference.
 
-With compatible existing installations, select the appropriate notebook kernel and set the installed `Rscript.exe` location in [desktop_settings.json](desktop_scripts/desktop_settings.json). The desktop entries check dependencies; they do not reset the environment. If the toolkit moves, set `DRT_TOOLKIT_ROOT` before sourcing an R entry, or revise its root setting. Open notebooks from within the toolkit folder.
+Use a compatible Python 3.10–3.12 interpreter, Jupyter or a compatible editor, and R. Check [requirements.txt](requirements.txt) against the fitted demand model's dependency profile. R must load `AER`, `mgcv` and `jsonlite`. Optional spatial dependencies are listed in [requirements-spatial.txt](requirements-spatial.txt).
 
-For a dedicated environment, run the optional setup from PowerShell in the toolkit root:
+Existing compatible installations can be used directly. The desktop entries check dependencies without installing packages or resetting environments. If a dedicated environment is required, open PowerShell in the toolkit root and run:
 
 ```powershell
 .\setup.ps1 -Python 'C:\path\to\python.exe' `
   -Rscript 'C:\path\to\Rscript.exe'
 ```
 
-This creates `.venv`, installs Python requirements and checks or installs missing R packages in the selected R installation. Select or register that environment as a Jupyter kernel before using it in notebooks.
+Replace the placeholders with installed executable paths. Setup creates `.venv`, installs Python requirements and checks or installs missing R packages. It can require internet access. Select or register `.venv` as a Jupyter kernel separately if using it in notebooks.
 
-## Prepare the data for a new case study
+## Prepare study data
 
-Create a study subfolder such as `data/project_A/`. Use [DATA_DICTIONARY.csv](docs/DATA_DICTIONARY.csv) and the packaged tables to check formats, then prepare the study's own records. Use UTF-8 CSV files, preserve identifiers as text and use consistent units, dates and missing-value conventions. Prepared demographic and spatial-context features must already be available; catchment analysis and raw smartcard processing are outside the toolkit.
+Save CSV files in UTF-8. Preserve identifiers as text, including prefixes and leading zeros. Prepare the following inputs using consistent units, geographic support and reporting periods.
 
-| Input group | Preparation requirements |
+| Dataset | Primary fields and preparation | Registered through |
+|---|---|---|
+| Historical service indicators | Unique ServiceID, Jurisdiction, ServiceType, configured input/output indicators, binary service intentions and contextual fields | paths.historical |
+| Service-intention mapping | ServiceIntention and binary policy-output columns; every intention maps to at least one output | paths.si_mapping |
+| Performance explanatory data | One record per selected historical ServiceID, matching jurisdiction labels and all configured predictors | paths.tobit_explanatory; optional paths.exogenous |
+| Observed demand | GridID_O, GridID_D, Hour, Trips, zero_trip and all required explanatory features; include zero observations | paths.demand_training |
+| Scenario demand inputs | Complete prospective OD-hour features and a compatible reviewed fitted model, or independently validated hourly forecasts | Existing model/feature path entries, demand.prediction_cases; alternatively paths.provided_od |
+| Directed network | from_node, to_node, travel_time_s and distance_km; valid directions and connectivity | paths.network |
+| Grids and depots | GridID-to-node_id access assignments, valid depot nodes and configured spatial references | paths.grid_nodes, paths.depots and simulation.depot_nodes |
+| Proposed-service characteristics | Unique proposed ServiceID, classification, FleetNum, KMCost, intention flags and contextual outputs; match configured alternatives | paths.scenario_characteristics |
+| Costs | Consistent currency and price basis for fuel cost, driver wages and wage operating days | paths.cost_parameters |
+
+Use **ServiceID** across service tables and scenario settings, and **Jurisdiction** for administrative labels. Generated efficiency tables retain `DMU` for the corresponding service identifier; the regression entry maps it to ServiceID. Passenger, grid and road-node IDs remain separate identifiers.
+
+`PredTrips` represents expected requests for an OD pair during an hour, rather than a per-second rate. `KMCost` is cost per vehicle kilometre, rather than monthly total cost. Historical `MonthlyPatronage` represents boardings; simulated monthly patronage is derived from served requests. Review these definitions before comparison.
+
+The toolkit consumes prepared demographic and spatial-context features. It does not retrieve raw smartcard records, construct catchments or allocate population to service areas. Appendix A of the guidebook describes primary fields, units and data locations. The [data dictionary](docs/DATA_DICTIONARY.csv) provides a broader source inventory; the active CSV headers and configuration determine the fields required by the selected study.
+
+## Configure and adapt a new case
+
+The supplied template contains example settings rather than universal defaults. Review every inherited path and assumption.
+
+| Configuration area | Review for the study |
 |---|---|
-| Historical service table | One row per unique ServiceID, with ServiceType, COUNTYNAME, configured resource inputs and outcomes, binary service-intention flags and required contextual indicators. Use finite nonnegative indicators and a common reporting basis. The current preparation code checks Util_Rate as a fraction from 0 to 1 even when excluded from a comparison specification. |
-| Performance explanatory table | Exactly match the selected historical ServiceID set and COUNTYNAME labels. Include variables used by the Tobit formulas; review missing values, constant predictors, collinearity and uncensored score variation. Scores are joined from the selected evaluation, rather than reused from another reference frontier. |
-| Observed demand table | Prepare GridID_O, GridID_D, Hour, observed Trips and all configured explanatory features. The regression's zero_trip flag is 1 for zero Trips and 0 otherwise. Keep feature transformations and units consistent. |
-| Demand scenario inputs | Prepare complete OD-hour features for each scenario and register a compatible, validated fitted demand model. Review calibration, expansion and growth assumptions for the new study. Alternatively, supply independently validated hourly forecasts through the provided-demand interface. |
-| Road and spatial inputs | Directed network columns: from_node, to_node, travel_time_s and distance_km. Require positive times and nonnegative distances. Prepare GridID-to-node_id mappings and valid depot nodes; confirm directed connectivity. Supply configured spatial reference files and consistent coordinate systems. |
-| Proposed services and costs | Give each scenario a unique ServiceID and matching service-characteristics record. Define fleet, capacity, hours, constraints, replications, operating days and cost assumptions. Prepare all service-intention/contextual outputs needed for pooled comparison. |
+| project_root, rscript and paths | Keep the configuration directly under config with project_root set to `..`; use forward slashes and toolkit-relative input paths. Select the intended R executable. Every non-null input path must exist. |
+| allowed_jurisdictions | Exact jurisdiction labels matching the selected service records |
+| evaluation and comparison_evaluation | Resource inputs, desirable outputs, policy mapping and compatible comparison definitions |
+| tobit.models | Group selections, formulas, sample sizes, score variation and predictor coding |
+| demand | Formulas, feature transformations, forecast cases, fitted-model compatibility and source/integrity checks |
+| simulation | ServiceID, demand_case, fleet_size, capacity, depots, hours, dwell, waiting/ride constraints, dispatch weights and replications; seed is a top-level setting |
+| bridge | Monthly operating days, cost accounting and a documented comparability review |
 
-The standard hourly forecast interface is `Hour`, `GridID_O`, `GridID_D`, `PredTrips`. PredTrips represents expected passenger requests per OD pair during that hour. If using provided forecasts, set `demand.source` to `provided` and `paths.provided_od` to their file. Run selected stages if demand-estimation inputs are unavailable; the complete sequence still fits the explanatory demand model.
+Update demand cases, feature paths, scenario demand_case values and spatial mappings together. Clear example forecast-reference paths to `null` unless matching study-specific references are available. Update both the depot dataset and `simulation.depot_nodes`; the configured node list controls deployment.
 
-Use **ServiceID** consistently in operational, explanatory and scenario tables and in scenario configuration objects. DEA score and peer exports retain `DMU` as the analytical label for the same service identifier; the R join converts that label to ServiceID. GridID and passenger/vehicle identifiers have separate meanings and must not be renamed to ServiceID.
+Changing a study can require script revisions. Review the example-specific grid-ID adapter in `drt_toolkit/simulation.py`, service-group mapping in `drt_toolkit/evaluation.py`, formulas in both standalone and packaged R implementations, and accounting logic in `drt_toolkit/pipeline.py`. A new observed-demand file requires a compatible fitted prediction model and matching source information; changing a hash alone does not adapt the model.
 
-## Register the case and review settings
+The simulator represents flexible pooled operations. Service-type labels do not add timetables or corridor rules. Prepare or revise the operational logic when different rules are needed. Replace example-specific notebook audit counts and `tests/verify_case.py` checks with study-appropriate checks. Keep paired notebook and Python entries consistent when modifying executable cells.
 
-Copy [project_template.json](config/project_template.json) to a study-specific file, for example `config/project_A.json`. The template is a populated reference configuration. Review every inherited value before use, including paths, formulas, jurisdictions, scenarios, fitted-model checks and costs.
+## Run through desktop scripts
 
-| Configuration area | Set for the study |
-|---|---|
-| paths and allowed_counties | Study input files and included jurisdiction labels. Use matching labels across service tables. Keep configuration files directly under config and use toolkit-root-relative paths, forward slashes and project_root set to `..` for the standard layout. |
-| evaluation and comparison_evaluation | Resource inputs, desirable outputs and policy-direction indicators. Prepare a matching service-intention mapping with at least one output for each intention. |
-| tobit.models | Estimable group formulas and available explanatory variables. Review whether each group has adequate sample size and score variation. |
-| demand | Estimation formulas, forecast case identifiers, compatible model and feature files, calibration and integrity settings. Clear reference-demand paths to null unless matching study-specific forecasts exist. |
-| simulation | Scenarios with ServiceID, demand_case and fleet_size; capacity, operating hours, depot nodes, dwell, waiting/ride constraints, dispatch weights, seed and replication count. |
-| bridge | Reporting-day conversion, costs, trip accounting and comparability review. Set comparable_trip_definition_confirmed to false during review; replace the example note and confirm only after definitions are compatible. |
-
-Update demand case identifiers, feature-file paths, scenario demand_case values and spatial mappings together. Update both the depot table and `simulation.depot_nodes`; deployment uses the configuration's node list. Choose replication counts through stability checks and justify operating-day and cost assumptions from the study context.
-
-For desktop execution, edit `desktop_scripts/desktop_settings.json`:
+1. Open notebooks from within the toolkit folder and select a compatible Jupyter kernel.
+2. Edit [desktop_settings.json](desktop_scripts/desktop_settings.json) to select the configuration, fresh run ID and installed Rscript executable.
+3. Open [00_Run_All.ipynb](desktop_scripts/00_Run_All.ipynb), run the first setup cell and then execute the remaining cells in order. Use the numbered entries for staged analysis.
 
 ```json
 {
@@ -79,29 +100,13 @@ For desktop execution, edit `desktop_scripts/desktop_settings.json`:
 }
 ```
 
-Restart the notebook kernel after changing settings. Keep `paths.outputs` as `outputs` with the current desktop helpers and standalone R entries; another output location requires coordinated reader/writer changes. Use one run ID across the stages of a run and a new ID after changing data, code or configuration. Existing run manifests reject changed hashes.
+The R entries can be called from the notebooks or sourced in RStudio. Skip optional R calls if those models have already been fitted for the selected run. The copied R entry files locate the toolkit from their own location. If automatic discovery fails, set `DRT_TOOLKIT_ROOT` before sourcing an R entry. Keep `paths.outputs` as `outputs` with the current desktop helpers; relocating outputs requires coordinated reader/writer revisions.
 
-## Adjust scripts when the study requires it
+After a toolkit update, reopen the updated notebook and run its setup cell to reload the helper. Saved settings are refreshed before stage calls. Starting validation, evaluation or the complete sequence can preserve an incompatible old run and save a fresh run selection. Confirm the printed Results path. For downstream mismatches, restart from notebook 00 or 01.
 
-Changing file paths alone is sufficient only when the data and assumptions already satisfy the existing interfaces. Review these components when adapting the framework:
+## Run through Windows PowerShell
 
-- **Service classifications:** revise the group mapping in `drt_toolkit/evaluation.py` and related formulas for labels beyond Fixed-Route, Flexible Fixed-Route and Point-to-Point.
-- **Regression specifications:** review both the standalone R entries and the corresponding models in `drt_toolkit/r/` when changing model logic or complex formula terms.
-- **Demand model:** fit and validate a suitable model when populations, feature definitions or calibration change. Register its model file and integrity information together with compatible training and scenario inputs.
-- **Spatial identifiers and operations:** revise the input adapter in `drt_toolkit/simulation.py` if the grid-ID scheme differs from the example. Timetables, corridors, grouped bookings, shifts or different dispatch rules require corresponding operational logic; evaluation labels do not impose those rules.
-- **Accounting and comparison:** review the bridge in `drt_toolkit/pipeline.py` for different reporting periods, costs or KPI definitions. Patronage, dispatch tours, passenger-carrying trips, busy time and seat occupancy are distinct measures. Passenger-kilometres, promised-time delays, farebox revenue and subsidy require additional calculations.
-- **Inspection and validation:** update example paths in preview cells, particularly notebooks 01 and 05. Replace the example-only final audit in notebook 00 and fixed checks in `tests/verify_case.py` with checks appropriate to the study. Keep paired notebook and .py entries consistent.
-
-For externally modelled operational results, prepare reviewed monthly indicators and run comparison separately. The standard combined sequence includes the built-in simulation and bridge.
-
-## Run and review the study
-
-| Route | How to run | Typical use |
-|---|---|---|
-| Desktop | Open 00_Run_All.ipynb or numbered notebooks with the selected kernel; source R entries in RStudio or through optional notebook calls | Inspect intermediate data, diagnostics and results interactively |
-| Windows PowerShell | Supply Python, Rscript, Config and RunId to run_case.ps1, or use individual pipeline commands | Repeat a configured analysis or execute stages in a batch |
-
-From PowerShell in the toolkit root:
+Open PowerShell in the toolkit root. Select compatible executable paths, the study configuration and a new run ID:
 
 ```powershell
 .\run_case.ps1 `
@@ -111,31 +116,47 @@ From PowerShell in the toolkit root:
   -RunId 'project_A_001'
 ```
 
-For one stage, use the compatible Python executable:
+PowerShell uses command arguments rather than `desktop_settings.json`. Keep the R executable in the study JSON consistent with the selected installation. Backticks must be the final characters on continued lines.
+
+The complete command runs `validate → evaluate → tobit → demand → predict → simulate → bridge → compare`. For an individual stage:
 
 ```powershell
 & 'C:\path\to\python.exe' -m drt_toolkit evaluate `
   --config config/project_A.json --run-id project_A_001
 ```
 
-Other stages are validate, tobit, demand, predict, simulate, bridge and compare. Some pipeline stages read historical service inputs even when demand is the immediate task. The standalone demand-estimation R entry supports independent estimation. In desktop execution, skip optional R calls if the corresponding model has already been fitted for the run.
+Use the same run ID for dependent stages with unchanged inputs and settings. Choose a new ID after changing data, configuration or analytical code; existing manifests reject incompatible changes.
 
-Both routes should use the same inputs, specifications and seed policy when comparing results. Review files in `outputs/<run_id>/`: historical scores and peers, regression summaries, demand diagnostics and forecasts, simulation summaries and passenger/vehicle details, monthly indicators and pooled results. Pipeline manifests record versions, hashes and stage status; standalone R runs retain fitted objects, summaries and session information.
+For provided hourly forecasts, set `demand.source` to `provided` and register `paths.provided_od`. The complete sequence skips prediction but still runs explanatory demand estimation. For externally prepared monthly service indicators, register `paths.external_scenarios`, complete the comparability review and execute comparison separately; the standard complete sequence still includes built-in simulation and monthly conversion.
 
-Check input coverage, matching keys, estimation convergence, forecast plausibility, network routing, request conservation and service constraints. Confirm that historical and proposed indicators use compatible definitions before interpreting pooled scores. Software execution establishes internal consistency; validation against the study context is still required. Read waiting times and rejected demand alongside efficiency scores.
+## Review and interpret outputs
 
-## Use the illustrative data as a reference
+Read the selected `outputs/<run_id>/` folder and confirm its configuration, input versions and stage status before interpretation.
 
-The example includes matched historical operational and explanatory tables, prepared OD-hour demand observations, scenario features, a fitted demand model, directed roads, grid/depot mappings, spatial references, scenario characteristics and costs. Inspect `data/evaluation/`, `data/tobit/`, `data/demand/`, `data/simulation/`, `data/spatial/` and `data/scenarios/`, together with the paths selected in the example configuration. Compressed CSV.gz tables can be read directly by pandas.
+| Output | Review |
+|---|---|
+| historical_scores.csv and historical_peers.csv | Sample coverage, grouping, indicators and reference services |
+| Tobit samples, estimates and specifications | Matched records, current scores, predictor variation and estimation diagnostics |
+| Demand diagnostics and hourly forecasts | Convergence, feature definitions, OD-hour completeness and plausible magnitudes |
+| simulation_daily.csv and passenger/vehicle records | Requests = served + rejected; capacity, chronology, waits, rides and vehicle distance |
+| scenario_model_data.csv | Monthly conversion, costs and compatible indicator definitions |
+| pooled_comparison.csv and replication scores | Historical-only versus pooled changes, peers and feasibility statuses |
+| manifest.json and console logs | Inputs, software, analytical code and successful completion of required stages |
 
-Use these files to understand schemas and information flow. Preserve them while preparing a separate study. The example sample, geographic labels, fitted relationships, fleets and accounting assumptions require reassessment before transfer. Appendix A of the general guidebook describes the example separately from the main preparation instructions.
+Read waiting times and rejected demand alongside relative efficiency. Tobit estimates describe associations rather than causal effects. Retain infeasibility statuses and reasons rather than replacing failed scores with zeros. Execution and accounting checks establish internal consistency; demand and operational behaviour still require validation against the study context.
 
-Recorded example outputs have had their ServiceID field naming migrated; this does not constitute a new analytical run. Their manifests describe the original execution and original hashes. Use a fresh run ID for future runs after this schema change. See [the schema migration record](docs/SERVICE_ID_MIGRATION.json) for changed files and preservation details.
+## Explore the illustrative example
 
-## Further documentation
+The packaged case contains **200 matched historical services across six jurisdictions** in Taiwan: Tainan City, Kaohsiung City, Yilan County, Hualien County, Taitung County and New Taipei City. It includes **71,801 prepared demand observations**, two demand cases and eight fleet alternatives. With 20 replications per alternative, the example produces 160 daily scenario-replication records.
 
-- [General Word guidebook](docs/DRT_Planning_Guidebook_General_v2.1.docx), [HTML](docs/GUIDEBOOK.html) and [Markdown](docs/GUIDEBOOK.md): detailed study preparation, settings and step-by-step execution.
-- [Desktop instructions](desktop_scripts/README_DIRECT_RUN.md): entry files and environment selection.
-- [Academic framework description](docs/DRT_Toolkit_Desktop_Academic_Description.docx): modelling roles, information flows and interpretation.
-- [Data dictionary](docs/DATA_DICTIONARY.csv), [inventory](docs/data_inventory.json) and [provenance](docs/data_provenance.json): fields and packaged data sources.
-- [Recorded validation report](docs/VALIDATION_REPORT.md) and [source audit](docs/SOURCE_AUDIT.md): earlier execution evidence and implementation details. Earlier guidebook editions remain preserved as historical records.
+Use [config/case_study.json](config/case_study.json) to locate the matched service tables, demand and scenario features, fitted model, roads, grids, depots and costs. Inspect formats and information flow before creating a separate study folder. Preserve the example files and review its fitted relationships, geographic conventions and operating assumptions before reuse.
+
+The illustrative inputs support testing and learning the analysis framework. They do not establish the actual performance of the illustrated services, and reproduced results need not match the author’s thesis.
+
+## Documentation and repository contents
+
+- [PDF guidebook](docs/DRT%20Planning%20Toolkit%20Guidebook.pdf): data definitions, configuration and execution.
+- [Introduction webpage](docs/DRT%20Planning%20Toolkit.html): integrated framework and interactive examples.
+- [Desktop execution instructions](desktop_scripts/README_DIRECT_RUN.md).
+- [Data dictionary](docs/DATA_DICTIONARY.csv).
+

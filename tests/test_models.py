@@ -91,7 +91,7 @@ class ModelTests(unittest.TestCase):
         socio=pd.read_csv(root/'data/tobit/tobit_socio.csv')
         allowed={'Tainan City','Kaohsiung City','Yilan County','Hualien County','Taitung County','New Taipei City'}
         self.assertEqual(len(historical),200)
-        self.assertEqual(set(historical.COUNTYNAME),allowed)
+        self.assertEqual(set(historical.Jurisdiction),allowed)
         self.assertEqual(set(historical.ServiceID),set(socio.ServiceID))
         self.assertFalse(socio.ServiceID.duplicated().any())
         self.assertTrue({'PTOverlap_per','DayworkPopDensity','Elderly_per'}<=set(socio))

@@ -4,9 +4,9 @@ Use the desktop entry files to evaluate existing services, estimate demand, simu
 
 ## Before starting
 
-Select a Python kernel containing the required packages. Use the dependency profile in requirements.txt for the saved demand model. The reference installation uses the ArcPy kernel, which points to the Anaconda base interpreter. Kernel names may differ on other installations; check the interpreter and compatibility messages printed by the first code cell.
+Select a Python kernel containing the required packages. Use the dependency profile in requirements.txt for the saved demand model. Kernel names may differ on other installations; check the interpreter and compatibility messages printed by the first code cell.
 
-Check desktop_settings.json before execution. It specifies the shared configuration file, the installed Rscript.exe path and a run_id. The default configuration is config/case_study.json and the default run_id is desktop_run_en. The scripts do not install packages or create environments.
+Check desktop_settings.json before execution. It specifies the shared configuration file, the installed Rscript.exe path and a run_id. The default configuration is config/case_study.json and the default run_id is example_run_001. The scripts do not install packages or create environments.
 
 ## Run the complete framework
 
@@ -30,9 +30,9 @@ Open an R entry file in RStudio and click Source. Both R files read shared setti
 
 ## Manage paths and study runs
 
-Use one run ID for all stages belonging to the same study. Choose a new ID when data, code or model settings change. The pipeline rejects changed hashes in an existing run folder. Restart the notebook kernel after editing desktop_settings.json so the settings are reloaded. Sourcing an R entry file reloads its settings.
+Use one run ID for all stages belonging to the same study. Choose a new ID when data, code or model settings change. The pipeline rejects changed hashes in an existing run folder. Saved settings are read before each stage call. After a toolkit update, reopen the updated notebook and run its first setup cell to refresh the helper code. Sourcing an R entry file reloads its settings.
 
-Python locates the toolkit from the working folder or its parents, with a fallback path for the reference installation. For a different R file location, set DRT_TOOLKIT_ROOT before sourcing or edit toolkit_root at the top of the entry script. Set rscript in desktop_settings.json to the installed Rscript.exe. Keep the supporting modules and data with the entry files.
+Python editor scripts and R entry files locate the toolkit from their entry-file location. Notebooks search their working folder and parents. Open notebooks inside the toolkit. If R discovery fails, set DRT_TOOLKIT_ROOT before sourcing. Set rscript in desktop_settings.json to the installed Rscript.exe. Keep the supporting modules and data with the entry files.
 
 ## Interpret the results
 
@@ -40,4 +40,6 @@ The packaged example contains the same 200 DMUs in the operational and Tobit tab
 
 The DDF uses SciPy HiGHS. The event-driven simulator represents flexible pooled operations; it does not replay recorded vehicle trajectories. Review model assumptions and constraints before transferring the framework to another service. Trip counts and busy-time utilization are different measures, so review the primary harmonized comparison and full-indicator sensitivity together.
 
-Read [the general practitioner guidebook](../docs/DRT_Planning_Guidebook_General_v2.1.docx) for detailed stage inputs, outputs and execution instructions, including the distinction between packaged and desktop workflows. Existing execution reports and archived guides document earlier runs and editions. They are historical records rather than evidence that a modified study has been rerun.
+Read the [PDF guidebook](../docs/DRT%20Planning%20Toolkit%20Guidebook.pdf) for detailed data preparation, configuration and outputs. For command-line execution, see the [root README](../README.md#run-through-windows-powershell). The [introduction webpage](../docs/DRT%20Planning%20Toolkit.html) and PDF guidebook are stored together in `docs`. The PDF retains reference-installation guidance; this distribution uses automatic root discovery and the initial run ID example_run_001.
+
+The final combined-notebook audit checks the supplied illustrative case, including its reference forecasts and expected record counts. Adapt these checks when using another study. Previous execution outputs are not distributed; run the framework to create a fresh result folder.

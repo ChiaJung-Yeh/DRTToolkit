@@ -2,7 +2,7 @@
   "project_root": "..",
   "seed": 20261025,
   "rscript": "Rscript",
-  "allowed_counties": [
+  "allowed_jurisdictions": [
     "Tainan City",
     "Kaohsiung City",
     "Yilan County",

@@ -8,7 +8,7 @@ out <- args[2]
 historical <- read.csv(cfg$paths$historical,check.names=FALSE,colClasses=c(ServiceID='character'),fileEncoding='UTF-8-BOM')
 d <- read.csv(cfg$paths$tobit_explanatory,check.names=FALSE,colClasses=c(ServiceID='character'),fileEncoding='UTF-8-BOM')
 if (anyDuplicated(d$ServiceID)||anyNA(d$ServiceID)||!setequal(d$ServiceID,historical$ServiceID)) stop('Tobit explanatory DMUs must match the filtered historical sample exactly')
-if (!all(d$COUNTYNAME[match(historical$ServiceID,d$ServiceID)]==historical$COUNTYNAME)) stop('County mismatch between evaluation and explanatory tables')
+if (!all(d$Jurisdiction[match(historical$ServiceID,d$ServiceID)]==historical$Jurisdiction)) stop('Jurisdiction mismatch between evaluation and explanatory tables')
 # Stored national-frontier outcomes are not valid outcomes for the restricted sample.
 d <- d[,setdiff(names(d),c('GroupEff','MetaEff','ClusterName','TGR'))]
 scores <- read.csv(file.path(out, 'historical_scores.csv'), colClasses=c(DMU='character'),fileEncoding='UTF-8-BOM')

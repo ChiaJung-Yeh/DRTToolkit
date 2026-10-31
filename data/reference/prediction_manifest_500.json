@@ -1,7 +1,0 @@
-{
-  "source": "E:\\On-demand Transport Service\\Analysis\\6_Agent-based Modelling\\A_OD Analysis (TW Smartcard)\\Yilan City\\ML model\\dt_predict_500.csv",
-  "sha256": "d2aa54e48aa79e61db0688ff737b8d016b29227c02b7012ced32ff4d9baf11b4",
-  "rows": 826540,
-  "use_fr_share": true,
-  "total_method": "retained observed baseline plus saturating population-rate increment"
-}

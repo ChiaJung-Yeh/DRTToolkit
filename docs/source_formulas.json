@@ -1,4 +1,0 @@
-{
-  "positive_formula": "Trips ~ School_O+School_D+Shop_O+Shop_D+Hospital_O+Hospital_D+ TransportHub_O:Elderly000_D+ TransportHub_D:Elderly000_O+ Hospital_O:Elderly000_D+ Hospital_D:Elderly000_O+ School_O:HighSchoolStudent000_D+ School_D:HighSchoolStudent000_O+ Income_med_10k_O+TotalPop000_O+TotalPop000_D+ DRTRoute:euclidist+ DRTRoute:FR_share+ s(euclidist)+ s(Hour)+ s(Hour, by=FromCBD)+ s(Hour, by=ToCBD)+ s(Hour, by=TransportHub_O)+ s(Hour, by=TransportHub_D)+ ti(Hour, Shop_O)+ ti(Hour, Shop_D)",
-  "zero_formula": "zero_trip ~ FixedRoute+Elderly000_O+Elderly000_D+TotalPop000_O+TotalPop000_D+Shop_O+Shop_D+TransportHub_O+TransportHub_D+euclidist+ s(Hour)"
-}

@@ -3,28 +3,33 @@
 
 from pathlib import Path
 import sys
-# Locate the toolkit from the working folder, its parents, or the configured fallback.
-ROOT = next((p for p in [Path.cwd(), *Path.cwd().parents,
-    Path(r'E:\On-demand Transport Service\Analysis\7_Toolkit')]
+# Open notebooks within the toolkit; editor scripts can also locate their own folder.
+_entry_dir = Path(__file__).resolve().parent if '__file__' in globals() else Path.cwd()
+ROOT = next((p for p in [_entry_dir, *_entry_dir.parents, Path.cwd(), *Path.cwd().parents]
     if (p/'desktop_scripts/desktop_helpers.py').is_file()), None)
-if ROOT is None: raise FileNotFoundError('Cannot locate the toolkit folder')
+if ROOT is None:
+    raise FileNotFoundError('Open the notebook from inside the toolkit folder, then rerun this cell.')
 sys.path.insert(0, str(ROOT/'desktop_scripts'))
-from desktop_helpers import check_environment, run, run_r, OUT
+import importlib
+import desktop_helpers
+importlib.reload(desktop_helpers)
+from desktop_helpers import check_environment, run, run_r, get_output_dir, get_study_config
 import pandas as pd
 versions = check_environment()
+OUT = get_output_dir()
 
 
 # %% Inspect the eight scenarios. Complete notebook 04 first.
 
 import json
-cfg = json.loads((ROOT/'config/case_study.json').read_text(encoding='utf-8'))
+cfg = get_study_config()
 print(pd.DataFrame(cfg['simulation']['scenarios']).to_string(index=False))
 print('Replications per scenario:',cfg['simulation']['replications'])
 
 
 # %% Simulate all scenarios using the road network and forecast demand. Source: drt_toolkit/simulation.py.
 
-run('simulate')
+OUT = run('simulate')
 summary = pd.read_csv(OUT/'simulation_summary.csv')
 print(summary.to_string(index=False))
 

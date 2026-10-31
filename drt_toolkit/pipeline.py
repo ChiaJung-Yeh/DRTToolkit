@@ -78,7 +78,7 @@ def run_stage(cfg, stage, out):
                 raise ValueError(f'Missing packaged input {name}: {path}')
         write_json(out/'validation.json', dict(routes=len(historical), inputs=inputs, outputs=outputs,
                     missing_values=int(historical.isna().sum().sum()), groups=historical.ServiceType.value_counts().to_dict(),
-                    counties=historical.COUNTYNAME.value_counts().to_dict() if 'COUNTYNAME' in historical else {},
+                    counties=historical.Jurisdiction.value_counts().to_dict() if 'Jurisdiction' in historical else {},
                     scenarios=[s['ServiceID'] for s in cfg['simulation']['scenarios']]))
     elif stage == 'evaluate':
         scores, peers = evaluate(historical, mapping, cfg['evaluation'])

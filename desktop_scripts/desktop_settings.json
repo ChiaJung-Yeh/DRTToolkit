@@ -1,5 +1,5 @@
 {
   "config": "config/case_study.json",
-  "run_id": "desktop_run_en",
+  "run_id": "example_run_001",
   "rscript": "C:\\Program Files\\R\\R-4.4.2\\bin\\Rscript.exe"
 }

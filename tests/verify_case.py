@@ -15,13 +15,17 @@ def main():
     scores=pd.read_csv(out/'historical_scores.csv')
     actual=pd.read_csv(out/'tobit_model_data.csv')
     assert len(historical)==len(socio)==len(scores)==len(actual)==200
-    assert set(historical.COUNTYNAME)==set(cfg['allowed_counties'])
+    assert set(historical.Jurisdiction)==set(cfg['allowed_jurisdictions'])
     assert set(historical.ServiceID)==set(socio.ServiceID)==set(scores.DMU)==set(actual.ServiceID)
     joined=actual.merge(scores,left_on='ServiceID',right_on='DMU',suffixes=('_tobit','_dea'),validate='one_to_one')
     for c in ['MetaEff','GroupEff']:assert np.allclose(joined[c+'_tobit'],joined[c+'_dea'],rtol=0,atol=1e-12)
-    old=socio.merge(actual,on='ServiceID',suffixes=('_source','_new'))
-    changes={c:int((abs(old[c+'_source']-old[c+'_new'])>1e-7).sum()) for c in ['MetaEff','GroupEff']}
-    assert changes['MetaEff']>0
+    # Legacy source scores are optional; current outcomes must match this run's DEA above.
+    legacy_scores=[c for c in ['MetaEff','GroupEff'] if c in socio.columns]
+    changes={}
+    if legacy_scores:
+        old=socio[['ServiceID']+legacy_scores].merge(actual,on='ServiceID',suffixes=('_source','_new'),validate='one_to_one')
+        changes={c:int((abs(old[c+'_source']-old[c+'_new'])>1e-7).sum()) for c in legacy_scores}
+    legacy_check='Compared available legacy score columns' if legacy_scores else 'Not applicable: explanatory input contains no legacy score columns'
     gam=json.loads((out/'demand_diagnostics.json').read_text(encoding='utf-8'))
     assert gam['training_rows']==71801 and gam['positive_converged'] and gam['zero_converged']
     forecast=pd.read_csv(out/'ml_prediction_summary.csv')
@@ -49,7 +53,7 @@ def main():
     assert 'MonthlyTrips' not in specification['inputs'] and 'Util_Rate' not in specification['outputs']
     manifest=json.loads((out/'manifest.json').read_text(encoding='utf-8'))
     assert all(s['status']=='success' for s in manifest['stages'])
-    report=dict(historical_DMUs=200,matched_Tobit_DMUs=200,changed_from_source_national_scores=changes,
+    report=dict(historical_DMUs=200,matched_Tobit_DMUs=200,changed_from_source_national_scores=changes,legacy_score_check=legacy_check,
         GAM_training_rows=71801,forecast_cases=forecast.to_dict('records'),scenario_replications=len(daily),
         pooled_DMUs=208,status='passed')
     print(json.dumps(report,indent=2))

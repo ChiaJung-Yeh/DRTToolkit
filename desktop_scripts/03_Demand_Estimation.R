@@ -1,7 +1,18 @@
 # Estimate positive-flow and zero-flow demand components using the configured GAM formulas.
 # Open in RStudio and click Source, or execute with an installed Rscript.
 # Settings and output folder are shared with the numbered Jupyter notebooks.
-toolkit_root <- Sys.getenv('DRT_TOOLKIT_ROOT',unset='E:/On-demand Transport Service/Analysis/7_Toolkit')
+# Resolve this toolkit after copying or moving the folder.
+toolkit_root <- Sys.getenv('DRT_TOOLKIT_ROOT', unset='')
+if (!nzchar(toolkit_root)) {
+  source_files <- unlist(lapply(sys.frames(), function(frame) frame$ofile))
+  script_args <- sub('^--file=', '', grep('^--file=', commandArgs(), value=TRUE))
+  entry_files <- c(source_files, script_args)
+  entry_files <- entry_files[file.exists(entry_files)]
+  candidates <- c(vapply(entry_files, function(path) dirname(dirname(normalizePath(path, winslash='/'))), character(1)), getwd(), dirname(getwd()))
+  valid <- vapply(candidates, function(path) file.exists(file.path(path,'desktop_scripts','desktop_helpers.py')) && dir.exists(file.path(path,'drt_toolkit')), logical(1))
+  if (!any(valid)) stop('Set DRT_TOOLKIT_ROOT to the toolkit folder before sourcing this R script.')
+  toolkit_root <- head(candidates[valid], 1)
+}
 source(file.path(toolkit_root,'desktop_scripts','desktop_common.R'),encoding='UTF-8')
 # Estimate demand relationships and inspect fit diagnostics. Use the demand-prediction stage for future forecasts.
 suppressPackageStartupMessages(library(jsonlite))

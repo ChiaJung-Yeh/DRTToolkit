@@ -1,7 +1,18 @@
 # Tobit regression using matched explanatory variables
 # Open in RStudio and click Source, or execute with an installed Rscript.
 # Settings and output folder are shared with the numbered Jupyter notebooks.
-toolkit_root <- Sys.getenv('DRT_TOOLKIT_ROOT',unset='E:/On-demand Transport Service/Analysis/7_Toolkit')
+# Resolve this toolkit after copying or moving the folder.
+toolkit_root <- Sys.getenv('DRT_TOOLKIT_ROOT', unset='')
+if (!nzchar(toolkit_root)) {
+  source_files <- unlist(lapply(sys.frames(), function(frame) frame$ofile))
+  script_args <- sub('^--file=', '', grep('^--file=', commandArgs(), value=TRUE))
+  entry_files <- c(source_files, script_args)
+  entry_files <- entry_files[file.exists(entry_files)]
+  candidates <- c(vapply(entry_files, function(path) dirname(dirname(normalizePath(path, winslash='/'))), character(1)), getwd(), dirname(getwd()))
+  valid <- vapply(candidates, function(path) file.exists(file.path(path,'desktop_scripts','desktop_helpers.py')) && dir.exists(file.path(path,'drt_toolkit')), logical(1))
+  if (!any(valid)) stop('Set DRT_TOOLKIT_ROOT to the toolkit folder before sourcing this R script.')
+  toolkit_root <- head(candidates[valid], 1)
+}
 source(file.path(toolkit_root,'desktop_scripts','desktop_common.R'),encoding='UTF-8')
 if (!file.exists(file.path(out,'historical_scores.csv'))) stop('Run 01_Performance_Evaluation.ipynb first with the same run_id')
 # Reusable censored-normal models. Inputs are explicit, joined by ServiceID only.
@@ -11,7 +22,7 @@ if (.Platform$OS.type=='windows') try(Sys.setlocale('LC_CTYPE','English_United S
 historical <- read.csv(cfg$paths$historical,check.names=FALSE,colClasses=c(ServiceID='character'),fileEncoding='UTF-8-BOM')
 d <- read.csv(cfg$paths$tobit_explanatory,check.names=FALSE,colClasses=c(ServiceID='character'),fileEncoding='UTF-8-BOM')
 if (anyDuplicated(d$ServiceID)||anyNA(d$ServiceID)||!setequal(d$ServiceID,historical$ServiceID)) stop('Tobit explanatory DMUs must match the filtered historical sample exactly')
-if (!all(d$COUNTYNAME[match(historical$ServiceID,d$ServiceID)]==historical$COUNTYNAME)) stop('County mismatch between evaluation and explanatory tables')
+if (!all(d$Jurisdiction[match(historical$ServiceID,d$ServiceID)]==historical$Jurisdiction)) stop('Jurisdiction mismatch between evaluation and explanatory tables')
 # Stored national-frontier outcomes are not valid outcomes for the restricted sample.
 d <- d[,setdiff(names(d),c('GroupEff','MetaEff','ClusterName','TGR'))]
 scores <- read.csv(file.path(out, 'historical_scores.csv'), colClasses=c(DMU='character'),fileEncoding='UTF-8-BOM')

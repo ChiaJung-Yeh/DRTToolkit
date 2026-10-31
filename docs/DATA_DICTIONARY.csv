@@ -1,6 +1,6 @@
 ﻿Table,Field,Description,Unit,Type,Missing,ObservedMin,ObservedMax
-evaluation,RouteID,Unique decision-making unit ID,identifier,str,0,,
-evaluation,COUNTYNAME,County or local administrative name,text,str,0,,
+evaluation,ServiceID,Unique decision-making unit ID,identifier,str,0,,
+evaluation,Jurisdiction,County or local administrative name,text,str,0,,
 evaluation,RouteName,Service route name,text,str,0,,
 evaluation,SubRouteName,Subroute name,text,str,0,,
 evaluation,OpeType,Route/zone operation geometry classification,text,str,0,,
@@ -63,8 +63,8 @@ evaluation,TransportHub_NM,Min-max normalized TransportHub (unused by default),d
 evaluation,Amenity_NM,Min-max normalized Amenity (unused by default),dimensionless 0-1,float64,0,0.0,0.819672131147541
 evaluation,Shop_NM,Min-max normalized Shop (unused by default),dimensionless 0-1,float64,0,0.0,0.796028880866426
 evaluation,TourismComment_NM,Min-max normalized TourismComment (unused by default),dimensionless 0-1,float64,0,0.0,0.3502169485522
-tobit,RouteID,Unique decision-making unit ID,identifier,str,0,,
-tobit,COUNTYNAME,County or local administrative name,text,str,0,,
+tobit,ServiceID,Unique decision-making unit ID,identifier,str,0,,
+tobit,Jurisdiction,County or local administrative name,text,str,0,,
 tobit,RouteName,Service route name,text,str,0,,
 tobit,SubRouteName,Subroute name,text,str,0,,
 tobit,OpeType,Route/zone operation geometry classification,text,str,0,,

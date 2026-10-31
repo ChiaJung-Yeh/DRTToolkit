@@ -1,4 +1,4 @@
-﻿ServiceID,COUNTYNAME,OpeName,ServiceType,FleetNum,Buffer,KMCost,SI_Education,SI_Elderly,SI_Indigenous,SI_LocalCentre,SI_Medicare,SI_Substitution,SI_Tourism,Population,DayworkPop,KidsTeen,Elderly,Indigenous,School,MedicalService,TransportHub,Amenity,Shop,TourismComment
+﻿ServiceID,Jurisdiction,OpeName,ServiceType,FleetNum,Buffer,KMCost,SI_Education,SI_Elderly,SI_Indigenous,SI_LocalCentre,SI_Medicare,SI_Substitution,SI_Tourism,Population,DayworkPop,KidsTeen,Elderly,Indigenous,School,MedicalService,TransportHub,Amenity,Shop,TourismComment
 ILA_09_200_2,Yilan County,黃1,Point-to-Point,2,200.0,18.6543603767852,1,0,0,1,1,0,0,48281,55808,4073,9977,637,12,89,2,57,88,84808
 ILA_09_200_3,Yilan County,黃1,Point-to-Point,3,200.0,24.0131348511384,1,0,0,1,1,0,0,48281,55808,4073,9977,637,12,89,2,57,88,84808
 ILA_09_200_4,Yilan County,黃1,Point-to-Point,4,200.0,30.2988993009073,1,0,0,1,1,0,0,48281,55808,4073,9977,637,12,89,2,57,88,84808

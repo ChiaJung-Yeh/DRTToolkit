@@ -3,26 +3,31 @@
 
 from pathlib import Path
 import sys
-# Locate the toolkit from the working folder, its parents, or the configured fallback.
-ROOT = next((p for p in [Path.cwd(), *Path.cwd().parents,
-    Path(r'E:\On-demand Transport Service\Analysis\7_Toolkit')]
+# Open notebooks within the toolkit; editor scripts can also locate their own folder.
+_entry_dir = Path(__file__).resolve().parent if '__file__' in globals() else Path.cwd()
+ROOT = next((p for p in [_entry_dir, *_entry_dir.parents, Path.cwd(), *Path.cwd().parents]
     if (p/'desktop_scripts/desktop_helpers.py').is_file()), None)
-if ROOT is None: raise FileNotFoundError('Cannot locate the toolkit folder')
+if ROOT is None:
+    raise FileNotFoundError('Open the notebook from inside the toolkit folder, then rerun this cell.')
 sys.path.insert(0, str(ROOT/'desktop_scripts'))
-from desktop_helpers import check_environment, run, run_r, OUT
+import importlib
+import desktop_helpers
+importlib.reload(desktop_helpers)
+from desktop_helpers import check_environment, run, run_r, get_output_dir, get_study_config
 import pandas as pd
 versions = check_environment()
+OUT = get_output_dir()
 
 
 # %% Convert daily simulation results to monthly proposed-service indicators.
 
-run('bridge')
+OUT = run('bridge')
 print(pd.read_csv(OUT/'scenario_model_data.csv').to_string(index=False))
 
 
 # %% Recalculate group and meta frontiers using the 200 existing and eight proposed services.
 
-run('compare')
+OUT = run('compare')
 comparison = pd.read_csv(OUT/'pooled_comparison.csv')
 print(comparison[comparison.Source=='simulated'].to_string(index=False))
 

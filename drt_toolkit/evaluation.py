@@ -102,7 +102,7 @@ def evaluate(df, mapping, spec, reference_ids=None, target_ids=None):
 
 def read_evaluation(cfg):
     data = read_csv(cfg['paths']['historical'], ['ServiceID','ServiceType'])
-    allowed = cfg.get('allowed_counties')
-    if allowed and ('COUNTYNAME' not in data or not set(data.COUNTYNAME)<=set(allowed)):
-        raise ValueError('Evaluation data include services outside the configured six-jurisdiction scope')
+    allowed = cfg.get('allowed_jurisdictions')
+    if allowed and ('Jurisdiction' not in data or not set(data.Jurisdiction)<=set(allowed)):
+        raise ValueError('Evaluation data include services outside the configured jurisdiction scope')
     return data,read_csv(cfg['paths']['si_mapping'],['ServiceIntention'])
